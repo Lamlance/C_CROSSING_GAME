@@ -141,6 +141,9 @@
   <ItemGroup>
     <ClCompile Include="C_CROSSING_GAME.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\OneDrive - VNU-HCMUS\Documents\GitHub\C_CROSSING_GAME\C_CROSSING_GAME\CPEOPLE.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

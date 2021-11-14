@@ -13,10 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\PEOPLE">
+      <UniqueIdentifier>{fe7864b2-1771-4435-b8c3-1991773c46da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C_CROSSING_GAME.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\OneDrive - VNU-HCMUS\Documents\GitHub\C_CROSSING_GAME\C_CROSSING_GAME\CPEOPLE.h">
+      <Filter>Source Files\PEOPLE</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
