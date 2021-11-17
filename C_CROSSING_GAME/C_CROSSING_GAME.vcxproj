@@ -140,6 +140,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="C_CROSSING_GAME.cpp" />
+    <ClCompile Include="D:\FIT.HCMUS\Nam 2 HK 1\OOP\project\CrossTest\CrossTest\CCAR.cpp" />
+    <ClCompile Include="D:\FIT.HCMUS\Nam 2 HK 1\OOP\project\CrossTest\CrossTest\CTRUCK.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\FIT.HCMUS\Nam 2 HK 1\OOP\project\CrossTest\CrossTest\CCAR.h" />
+    <ClInclude Include="D:\FIT.HCMUS\Nam 2 HK 1\OOP\project\CrossTest\CrossTest\CTRUCK.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
