@@ -6,19 +6,19 @@
 #include <iostream>
 #include <stdlib.h>
 #include <windows.h>
-
-class CGAME // Xoa khi bat dau lam header
-{
-public:
-	void update();
-	bool isDead();
-	bool isDone();
-	void input(char cmd);
-	void draw();
-private:
-
-};
-
+#include "CGAME.h"
+//class CGAME // Xoa khi bat dau lam header
+//{
+//public:
+//	void update();
+//	bool isDead();
+//	bool isDone();
+//	void input(char cmd);
+//	void draw();
+//private:
+//
+//};
+//
 
 static CGAME game;
 bool IS_RUN = true;

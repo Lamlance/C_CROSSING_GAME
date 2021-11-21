@@ -27,10 +27,7 @@
     <ClCompile Include="CTRUCK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\FIT.HCMUS\Nam 2 HK 1\OOP\project\CrossTest\CrossTest\CCAR.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="D:\FIT.HCMUS\Nam 2 HK 1\OOP\project\CrossTest\CrossTest\CTRUCK.cpp">
+    <ClCompile Include="CCAR.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,10 +44,7 @@
     <ClInclude Include="CVEHICLE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\FIT.HCMUS\Nam 2 HK 1\OOP\project\CrossTest\CrossTest\CCAR.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="D:\FIT.HCMUS\Nam 2 HK 1\OOP\project\CrossTest\CrossTest\CTRUCK.h">
+    <ClInclude Include="CCAR.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
