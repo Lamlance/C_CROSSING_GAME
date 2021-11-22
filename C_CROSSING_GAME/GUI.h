@@ -1,13 +1,15 @@
 #pragma once
-#include <Windows.h>
 #include <iostream>
-#include <conio.h>
-using namespace std;
-void Color(int color)
+#include <Windows.h>
+#include <stdlib.h>
+#include <string.h>
+#define consoleWidth 100
+#define consoleHeight 25
+struct carrunning
 {
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
-}
-void introgame() {
-	Color(10);
-	cout << "Hello";
-}
+	char t[30];
+	int x, y;
+};
+void cls(HANDLE hConsole);
+void gameIntro();
+void gotoxy(short x, short y);

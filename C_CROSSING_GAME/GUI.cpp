@@ -3,6 +3,7 @@ void gameIntro() {
     HANDLE handle;
     handle = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(handle, 11);
+
     carrunning car;
     carrunning car1;
     carrunning car2;
