@@ -16,6 +16,7 @@ public:
 	CGAME();
 	void draw();
 	void update();
+	void carUpdate(bool green = true);
 	void input(char cmd);
 	bool isDead() { return pep.isDead; };
 	bool isDone() { return pep.isWin; };

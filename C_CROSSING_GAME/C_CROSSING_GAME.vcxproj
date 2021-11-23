@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CCAR.cpp" />
     <ClCompile Include="CGAME.cpp" />
     <ClCompile Include="CTRUCK.cpp" />
     <ClCompile Include="C_CROSSING_GAME.cpp" />
@@ -146,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\OneDrive - VNU-HCMUS\Documents\GitHub\C_CROSSING_GAME\C_CROSSING_GAME\CPEOPLE.h" />
+    <ClInclude Include="CCAR.h" />
     <ClInclude Include="CGAME.h" />
     <ClInclude Include="CTRUCK.h" />
     <ClInclude Include="CVEHICLE.h" />

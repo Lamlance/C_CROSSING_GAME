@@ -49,7 +49,7 @@ void CGAME::draw()
 		gameBoard[carVct[i].mY][carVct[i].mX] = CCAR::symb;
 	}
 
-	gameBoard[pep.mY][pep.mX] = '';
+	gameBoard[pep.mY][pep.mX] = '^';
 
 	std::cout << "||";
 	for (int x = 0; x < GAME_WIDTH; x++) { std::cout << "="; }
@@ -69,13 +69,13 @@ void CGAME::draw()
 	for (int x = 0; x < GAME_WIDTH; x++) { std::cout << "="; }
 	std::cout << "||" << std::endl;
 }
-void CGAME::update()
+
+void CGAME::carUpdate(bool green)
 {
-	system("cls");
 	int vctSize = carVct.size();
 	for (int i = 0; i < vctSize; i++)
 	{
-		if (gameBoard[carVct[i].mY][carVct[i].mX] != '')
+		if (gameBoard[carVct[i].mY][carVct[i].mX] != '^')
 		{
 			gameBoard[carVct[i].mY][carVct[i].mX] = '.';
 		}
@@ -84,6 +84,12 @@ void CGAME::update()
 		pep.isWin = pep.isWin || (pep.mY == 0);
 
 	}
+}
+
+void CGAME::update()
+{
+	system("cls");
+	this->carUpdate();
 	this->draw();
 }
 
