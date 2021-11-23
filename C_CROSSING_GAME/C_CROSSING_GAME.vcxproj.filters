@@ -30,6 +30,15 @@
     <ClCompile Include="GUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CCAR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CDINOSAUR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CELEPHANT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\OneDrive - VNU-HCMUS\Documents\GitHub\C_CROSSING_GAME\C_CROSSING_GAME\CPEOPLE.h">
@@ -45,6 +54,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CCAR.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CDINOSAUR.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CELEPHANT.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
