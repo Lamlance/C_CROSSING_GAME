@@ -16,36 +16,81 @@
     <Filter Include="Source Files\PEOPLE">
       <UniqueIdentifier>{fe7864b2-1771-4435-b8c3-1991773c46da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\VEHICLE">
+      <UniqueIdentifier>{0061ed90-6718-408b-b4da-cc078b075345}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ANIMAL">
+      <UniqueIdentifier>{7de9d33c-bb30-44d4-9f38-2eac7132e1dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI">
+      <UniqueIdentifier>{bde9ea5e-e2d8-4029-b52a-4949b153f9b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\CGAME">
+      <UniqueIdentifier>{536870ba-f434-4f06-b2b3-452788d19fd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ANIMAL">
+      <UniqueIdentifier>{3d013d61-5022-4aa2-883b-60a4b156ee8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\VEHICLE">
+      <UniqueIdentifier>{9b5e135f-43cf-4e46-8649-f3963becb1a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI">
+      <UniqueIdentifier>{fc0c9ce6-2a1f-424e-af23-0dca7b9c509e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MAIN">
+      <UniqueIdentifier>{d1f2e1e1-2719-4956-bb3e-a4d61a9b4c45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\CGAME">
+      <UniqueIdentifier>{1753e3d2-92b6-452c-aed6-aae28224d21d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C_CROSSING_GAME.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="CDINOSAUR.cpp">
+      <Filter>Source Files\ANIMAL</Filter>
     </ClCompile>
-    <ClCompile Include="CGAME.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="CELEPHANT.cpp">
+      <Filter>Source Files\ANIMAL</Filter>
     </ClCompile>
     <ClCompile Include="CTRUCK.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\VEHICLE</Filter>
+    </ClCompile>
+    <ClCompile Include="CCAR.cpp">
+      <Filter>Source Files\VEHICLE</Filter>
     </ClCompile>
     <ClCompile Include="GUI.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="C_CROSSING_GAME.cpp">
+      <Filter>Source Files\MAIN</Filter>
+    </ClCompile>
+    <ClCompile Include="CGAME.cpp">
+      <Filter>Source Files\CGAME</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\OneDrive - VNU-HCMUS\Documents\GitHub\C_CROSSING_GAME\C_CROSSING_GAME\CPEOPLE.h">
       <Filter>Source Files\PEOPLE</Filter>
     </ClInclude>
-    <ClInclude Include="CGAME.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="CCAR.h">
+      <Filter>Header Files\VEHICLE</Filter>
     </ClInclude>
     <ClInclude Include="CTRUCK.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\VEHICLE</Filter>
     </ClInclude>
     <ClInclude Include="CVEHICLE.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\VEHICLE</Filter>
+    </ClInclude>
+    <ClInclude Include="CDINOSAUR.h">
+      <Filter>Header Files\ANIMAL</Filter>
+    </ClInclude>
+    <ClInclude Include="CELEPHANT.h">
+      <Filter>Header Files\ANIMAL</Filter>
     </ClInclude>
     <ClInclude Include="GUI.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CGAME.h">
+      <Filter>Header Files\CGAME</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
