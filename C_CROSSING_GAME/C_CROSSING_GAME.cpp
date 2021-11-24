@@ -12,18 +12,43 @@ static CGAME game;
 bool IS_RUN = true;
 char MOVE = '1';
 
+double timePass_since(double startTime)
+{
+	return (clock() - startTime) / CLOCKS_PER_SEC;
+	
+}
+
 void dogame()
 {
+	double startTime = clock();
+	double stopTime = 0;
+	int num = 1;
 	while (IS_RUN)
 	{
-		game.update();
+		++num;
+		if (timePass_since(startTime) < 5)// car go
+		{
+			game.carUpdate(num % 3);
+			game.truckUpdate(num % 2);
+			stopTime = clock();
+		}
+		else
+		{
+			if (timePass_since(stopTime) >= 10)
+			{
+				stopTime = clock();
+				startTime = clock();
+			}
+		}
+		game.draw();
 		MOVE = ' ';
 		IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
-		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		std::this_thread::sleep_for(std::chrono::milliseconds(400));
+		num = num % 7;
 	}
 	if (IS_RUN == false)
 	{
-		std::cout << "Enter to done\n";
+		//abort();
 	}
 }
 
@@ -50,12 +75,12 @@ int main()
 	}
 	else if (game.isDone())
 	{
-		game.update();
+		game.update(true,true);
 		std::cout << "DONE";
 	}
 	else
 	{
-		game.update();
+		game.update(true, true);
 		std::cout << "Exit";
 	}
 

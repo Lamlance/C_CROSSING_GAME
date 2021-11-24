@@ -33,6 +33,7 @@
     <ClCompile Include="CCAR.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+
     <ClCompile Include="CDINOSAUR.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -59,6 +60,7 @@
     <ClInclude Include="CCAR.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+
     <ClInclude Include="CDINOSAUR.h">
       <Filter>Header Files</Filter>
     </ClInclude>
