@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <windows.h>
 #include "CGAME.h"
-
+#include<conio.h>
 static CGAME game;
 bool IS_RUN = true;
 char MOVE = '1';
@@ -40,6 +40,9 @@ void dogame()
 				startTime = clock();
 			}
 		}
+		game.eleUpdate(num % 2);
+		game.dinoUpdate(num % 2);
+
 		game.draw();
 		MOVE = ' ';
 		IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
@@ -54,14 +57,32 @@ void dogame()
 
 int main()
 {
+	/*for (unsigned char i = 0; i < UCHAR_MAX; i++)
+	{
+		std::cout << int(i) << ": " << char(i) << std::endl;
+	}
+
+	return 0;*/
+
 	std::thread th1(dogame);
 	while (IS_RUN)
 	{
-		std::cin >> MOVE;
+		MOVE = _getch();
 		std::cin.clear();
-		if (IS_RUN)
+		if (MOVE == 'p')
 		{
-			game.input(MOVE);
+			SuspendThread(th1.native_handle());
+		}
+		else if(MOVE == 'c')
+		{
+			ResumeThread(th1.native_handle());
+		}
+		else
+		{
+			if (IS_RUN)
+			{
+				game.input(MOVE);
+			}
 		}
 		MOVE = '1';
 		IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());

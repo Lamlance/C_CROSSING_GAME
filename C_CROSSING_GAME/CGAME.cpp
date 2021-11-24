@@ -60,27 +60,75 @@ void CGAME::draw()
 		gameBoard[truckVct[i].mY][truckVct[i].mX] = CTRUCK::symb;
 	}
 
+	//init dino character
+	vctSize = dinoVct.size();
+	for (int i = 0; i < vctSize; i++)
+	{
+		gameBoard[dinoVct[i].mY][dinoVct[i].mX] = CDINOSAUR::symb;
+	}
+
+	//inti ele character
+	vctSize = eleVct.size();
+	for (int i = 0; i < vctSize; i++)
+	{
+		gameBoard[eleVct[i].mY][eleVct[i].mX] = CELEPHANT::symb;
+	}
+
 	//init people character
 	gameBoard[pep.mY][pep.mX] = '^';
 
-	std::cout << "||";
-	for (int x = 0; x < GAME_WIDTH; x++) { std::cout << "="; }
-	std::cout << "||" << std::endl;
+	std::cout << char(219);
+	for (int x = 0; x < GAME_WIDTH; x++) { std::cout << char(219); }
+	std::cout << char(219) << std::endl;
 
 	for (int y = 0; y < GAME_HEIGHT; y++)
 	{
-		std::cout << "||";
+		std::cout << char(219);
 		for (int x = 0; x < GAME_WIDTH; x++)
 		{
 			std::cout << char(gameBoard[y][x]);
 		}
-		std::cout << "||" << std::endl;
+		std::cout << char(219) << std::endl;
 	}
 
-	std::cout << "||";
-	for (int x = 0; x < GAME_WIDTH; x++) { std::cout << "="; }
-	std::cout << "||" << std::endl;
+	std::cout << char(219);
+	for (int x = 0; x < GAME_WIDTH; x++) { std::cout << char(219); }
+	std::cout << char(219) << std::endl;
 }
+
+void CGAME::eleUpdate(bool green)
+{
+	if (!green) { return; }
+	int vctSize = eleVct.size();
+	for (int i = 0; i < vctSize; i++)
+	{
+		if (gameBoard[eleVct[i].mY][eleVct[i].mX] != '^')
+		{
+			gameBoard[eleVct[i].mY][eleVct[i].mX] = '.';
+		}
+		eleVct[i].Move(GAME_WIDTH, CELEPHANT::spds);
+		pep.isDead = pep.isDead || (gameBoard[eleVct[i].mY][eleVct[i].mX] == '^');
+		pep.isWin = pep.isWin || (pep.mY == 0);
+	}
+}
+
+void CGAME::dinoUpdate(bool green)
+{
+	if (!green) { return; }
+	int vctSize = dinoVct.size();
+	for (int i = 0; i < vctSize; i++)
+	{
+		if (gameBoard[dinoVct[i].mY][dinoVct[i].mX] != '^')
+		{
+			gameBoard[dinoVct[i].mY][dinoVct[i].mX] = '.';
+		}
+		dinoVct[i].Move(GAME_WIDTH, CDINOSAUR::spds);
+		pep.isDead = pep.isDead || (gameBoard[dinoVct[i].mY][dinoVct[i].mX] == '^');
+		pep.isWin = pep.isWin || (pep.mY == 0);
+	}
+}
+
+
 void CGAME::truckUpdate(bool green)
 {
 	if (!green) { return; }
@@ -131,7 +179,7 @@ void CGAME::update(int stop,bool redLight)
 	
 }
 
-CGAME::CGAME() : gameBoard(nullptr), carVct(0), truckVct(0), pep(GAME_WIDTH, GAME_HEIGHT - 1)
+CGAME::CGAME() : gameBoard(nullptr), carVct(0), truckVct(0), pep(GAME_WIDTH, GAME_HEIGHT - 1),dinoVct(0),eleVct(0)
 {
 	//Crate game board
 	gameBoard = new char* [GAME_HEIGHT];
@@ -167,6 +215,31 @@ CGAME::CGAME() : gameBoard(nullptr), carVct(0), truckVct(0), pep(GAME_WIDTH, GAM
 			}
 		}
 	}
+
+	//Line of dino
+	for (int a = 0; a < GAME_WIDTH; a += CDINOSAUR::dist)
+	{
+		if (a + CDINOSAUR::size < GAME_WIDTH)
+		{
+			for (int b = 0; b < CDINOSAUR::size && (b + CDINOSAUR::size) < GAME_WIDTH; b++)
+			{
+				dinoVct.push_back(CDINOSAUR(a + b, GAME_HEIGHT - 6));
+			}
+		}
+	}
+	
+	//Line of ele
+	for (int a = 0; a < GAME_WIDTH; a += CELEPHANT::dist)
+	{
+		if (a + CELEPHANT::size < GAME_WIDTH)
+		{
+			for (int b = 0; b < CELEPHANT::size && (b + CELEPHANT::size) < GAME_WIDTH; b++)
+			{
+				eleVct.push_back(CELEPHANT(a + b, GAME_HEIGHT - 5));
+			}
+		}
+	}
+
 
 }
 
