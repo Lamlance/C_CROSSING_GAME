@@ -1,6 +1,6 @@
 #include "CTRUCK.h"
 
 int CTRUCK::spds = 1;
-int CTRUCK::size = 1;
-int CTRUCK::dist = 4;
+int CTRUCK::size = 2;
+int CTRUCK::dist = 5;
 char CTRUCK::symb = '*';

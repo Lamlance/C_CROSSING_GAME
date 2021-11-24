@@ -6,49 +6,83 @@
 #include <iostream>
 #include <stdlib.h>
 #include <windows.h>
-
-class CGAME // Xoa khi bat dau lam header
-{
-public:
-	void update();
-	bool isDead();
-	bool isDone();
-	void input(char cmd);
-	void draw();
-private:
-
-};
-
-
+#include "CGAME.h"
+#include<conio.h>
 static CGAME game;
 bool IS_RUN = true;
 char MOVE = '1';
 
+double timePass_since(double startTime)
+{
+	return (clock() - startTime) / CLOCKS_PER_SEC;
+	
+}
+
 void dogame()
 {
+	double startTime = clock();
+	double stopTime = 0;
+	int num = 1;
 	while (IS_RUN)
 	{
-		game.update();
+		++num;
+		if (timePass_since(startTime) < 5)// car go
+		{
+			game.carUpdate(num % 3);
+			game.truckUpdate(num % 2);
+			stopTime = clock();
+		}
+		else
+		{
+			if (timePass_since(stopTime) >= 10)
+			{
+				stopTime = clock();
+				startTime = clock();
+			}
+		}
+		game.eleUpdate(num % 2);
+		game.dinoUpdate(num % 2);
+
+		game.draw();
 		MOVE = ' ';
 		IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
-		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		std::this_thread::sleep_for(std::chrono::milliseconds(400));
+		num = num % 7;
 	}
 	if (IS_RUN == false)
 	{
-		std::cout << "Enter to done\n";
+		//abort();
 	}
 }
 
 int main()
 {
+	/*for (unsigned char i = 0; i < UCHAR_MAX; i++)
+	{
+		std::cout << int(i) << ": " << char(i) << std::endl;
+	}
+
+	return 0;*/
+
 	std::thread th1(dogame);
 	while (IS_RUN)
 	{
-		std::cin >> MOVE;
+		MOVE = _getch();
 		std::cin.clear();
-		if (IS_RUN)
+		if (MOVE == 'p')
 		{
-			game.input(MOVE);
+			SuspendThread(th1.native_handle());
+		}
+		else if(MOVE == 'c')
+		{
+			ResumeThread(th1.native_handle());
+		}
+		else
+		{
+			if (IS_RUN)
+			{
+				game.input(MOVE);
+			}
 		}
 		MOVE = '1';
 		IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
@@ -62,12 +96,12 @@ int main()
 	}
 	else if (game.isDone())
 	{
-		game.update();
+		game.update(true,true);
 		std::cout << "DONE";
 	}
 	else
 	{
-		game.update();
+		game.update(true, true);
 		std::cout << "Exit";
 	}
 
