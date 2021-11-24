@@ -15,7 +15,6 @@ char MOVE = '1';
 double timePass_since(double startTime)
 {
 	return (clock() - startTime) / CLOCKS_PER_SEC;
-	
 }
 
 void dogame()
@@ -67,12 +66,15 @@ int main()
 	std::thread th1(dogame);
 	while (IS_RUN)
 	{
+		// use _getch() in order not to hit enter while moving
 		MOVE = _getch();
 		std::cin.clear();
+		// pause
 		if (MOVE == 'p')
 		{
 			SuspendThread(th1.native_handle());
 		}
+		// continue
 		else if(MOVE == 'c')
 		{
 			ResumeThread(th1.native_handle());
