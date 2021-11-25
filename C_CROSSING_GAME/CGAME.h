@@ -28,6 +28,8 @@ public:
 	bool isDead() { return pep.isDead; };
 	bool isDone() { return pep.isWin; };
 	void save();
+	void saveGame(std::string fileName);
+	void loadGame(std::string fileName);
 	~CGAME()
 	{
 		for (int i = 0; i < GAME_HEIGHT; i++)
@@ -44,7 +46,6 @@ private:
 	std::vector<CELEPHANT> eleVct;
 	char** gameBoard;
 	HANDLE gamethreadHandler;
-
 };
 
 

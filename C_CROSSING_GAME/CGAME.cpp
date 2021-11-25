@@ -5,6 +5,8 @@
 #include <conio.h>
 #include <chrono>
 #include <thread>
+#include <windows.h>
+
 void CGAME::input(char cmd)
 {
 
@@ -255,4 +257,86 @@ void CGAME::save()
 		saveFile << carVct[i].getX() << " " << carVct[i].getY() << std::endl;
 	}
 
+}
+
+void CGAME::saveGame(std::string fileName)
+{
+	std::ofstream file;
+	file.open(fileName);
+	if (file.fail())
+	{
+		std::cout << "Cannot open file at " << fileName << std::endl;
+		return;
+	}
+	std::cout << "Saving..." << std::endl; Sleep(1);
+
+	file << GAME_HEIGHT << " " << GAME_WIDTH << std::endl;
+	file << pep.mX << " " << pep.mY << std::endl;
+
+	file << "CCAR" << std::endl; // #
+	for (int i = 0; i < carVct.size(); i++)
+	{
+		file <<  carVct[i].getX() << " " << carVct[i].getY() << std::endl;
+	}
+
+	file<< "CTRUCK " << std::endl; // **
+	for (int i = 0; i < truckVct.size(); i++){
+		file << truckVct[i].getX() << " " << truckVct[i].getY() << std::endl;
+	}
+
+	file<< "CDINOSAUR "<< std::endl; // >>>>
+	for (int i = 0; i < dinoVct.size(); i++) {
+		file << dinoVct[i].getX() << " " << dinoVct[i].getY() << std::endl;	
+	}
+	
+	file << "CELEPHANT " << std::endl; // 000
+	for (int i = 0; i < eleVct.size(); i++) {
+		file << eleVct[i].getX() << " " << eleVct[i].getY() << std::endl;	
+	}
+
+	std::cout << "Save Succeessfully!" << std::endl;
+	file.close();
+}
+
+void CGAME::loadGame(std::string fileName)
+{
+	std::ifstream file;
+	file.open(fileName);
+	if (file.fail()) {
+		std::cout << "Failed to open this file!" << std::endl;
+		return;
+	}
+	
+	int hight, width;
+	file >> hight >> width;
+	//std::cout << hight << " " << width << std::endl;
+	file >> pep.mX >> pep.mY;
+	std::cout << pep.mX << " " << pep.mY << std::endl;
+	//td::cout << pep.mX << " " << pep.mY << std::endl;
+	std::string car;
+	file >> car; // junk car
+	for (int i = 0; i < carVct.size(); i++)
+	{
+		file >> carVct[i].mX >> carVct[i].mY;
+	}
+
+	std::string truck;
+	file >> truck; // junk truck
+	for (int i = 0; i < truckVct.size(); i++) {
+	file >> truckVct[i].mX >> truckVct[i].mY;
+	}
+
+	std::string dinosaur;
+	file >> dinosaur; // junk dinosaur
+	for (int i = 0; i < dinoVct.size(); i++) {
+		file >> dinoVct[i].mX >> dinoVct[i].mY;
+	}
+
+	std::string elepants;
+	file >> elepants; // junk elepants
+	for (int i = 0; i < eleVct.size(); i++) {
+	file >> eleVct[i].mX >> eleVct[i].mY;
+	}
+	file.close();
+	std::cout << "Load successfull" << std::endl;
 }
