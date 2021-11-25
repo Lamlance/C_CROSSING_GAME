@@ -8,6 +8,7 @@
 #include <windows.h>
 #include "CGAME.h"
 #include<conio.h>
+#include "GUI.h"
 static CGAME game;
 bool IS_RUN = true;
 char MOVE = '1';
@@ -54,6 +55,7 @@ void dogame()
 	}
 }
 
+
 int main()
 {
 	/*for (unsigned char i = 0; i < UCHAR_MAX; i++)
@@ -62,51 +64,58 @@ int main()
 	}
 
 	return 0;*/
-
-	std::thread th1(dogame);
-	while (IS_RUN)
-	{
-		// use _getch() in order not to hit enter while moving
-		MOVE = _getch();
-		std::cin.clear();
-		// pause
-		if (MOVE == 'p')
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	gameIntro(handle);
+	int select = 0;
+	box(33, 8, handle, select);
+	if (select == 0) {
+		std::thread th1(dogame);
+		while (IS_RUN)
 		{
-			SuspendThread(th1.native_handle());
+			// use _getch() in order not to hit enter while moving
+			MOVE = _getch();
+			std::cin.clear();
+			// pause
+			if (MOVE == 'p')
+			{
+				SuspendThread(th1.native_handle());
+			}
+			// continue
+			else if (MOVE == 'c')
+			{
+				ResumeThread(th1.native_handle());
+			}
+			else
+			{
+				if (IS_RUN)
+				{
+					game.input(MOVE);
+				}
+			}
+			MOVE = '1';
+			IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
 		}
-		// continue
-		else if(MOVE == 'c')
+		th1.join();
+		if (game.isDead())
 		{
-			ResumeThread(th1.native_handle());
+			system("cls");
+			game.draw();
+			std::cout << "DED";
+		}
+		else if (game.isDone())
+		{
+			game.update(true, true);
+			std::cout << "DONE";
 		}
 		else
 		{
-			if (IS_RUN)
-			{
-				game.input(MOVE);
-			}
+			game.update(true, true);
+			std::cout << "Exit";
 		}
-		MOVE = '1';
-		IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
 	}
-	th1.join();
-	if (game.isDead())
-	{
-		system("cls");
-		game.draw();
-		std::cout << "DED";
-	}
-	else if (game.isDone())
-	{
-		game.update(true,true);
-		std::cout << "DONE";
-	}
-	else
-	{
-		game.update(true, true);
-		std::cout << "Exit";
-	}
+
 
 	return 0;
 }
+
 
