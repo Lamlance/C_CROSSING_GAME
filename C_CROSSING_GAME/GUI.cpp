@@ -1,13 +1,12 @@
 #include "GUI.h"
-void gameIntro() {
-    HANDLE handle;
+#include <vector>
+#include <conio.h>
+void gameIntro(HANDLE handle) {
     handle = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(handle, 11);
-
-    carrunning car;
-    carrunning car1;
-    carrunning car2;
-    carrunning car3;
+    object car;
+    object car1;
+    object car2;
+    object car3;
     strcpy_s(car.t, "  ______");
     strcpy_s(car1.t, " /|_||_\\`.");
     strcpy_s(car2.t, "(   _    _ _\\");
@@ -22,6 +21,7 @@ void gameIntro() {
     car3.y = 23;
     int k = 0;
     while (1) {
+        SetConsoleTextAttribute(handle, 12);
         std::cout << "\n\n\n";
         std::cout << "                        ___       ___      ___       ___      ___       ___      _  _      ___                  \n";
         std::cout << "               o O O   / __|     | _ \\    / _ \\     / __|    / __|     |_ _|    | \\| |    / __|      o O O      \n";
@@ -36,7 +36,12 @@ void gameIntro() {
         std::cout << "            {======|  {======|  {======| _|'''''| _|'''''| _|'''''| _ |'''''|  {======|  {======|  {======|  \n";
         std::cout << "           ./o--000' ./o--000' ./o--000' '`-0-0-' '`-0-0-'  `-0-0-'  '`-0-0-' ./o--000' . / o--000' ./o--000'  \n";
         if ((car.x + 4 >= consoleWidth)) k = 100;
-        std::cout << "\n\n                                                   Loanding " << k << "%\n";
+        std::cout << "\n\n                                                   Loanding ";
+        SetConsoleTextAttribute(handle, 11);
+        std::cout << k;
+        SetConsoleTextAttribute(handle, 12);
+        std::cout << " %\n";
+        SetConsoleTextAttribute(handle, 11);
         gotoxy(car.x, car.y);
         printf("%s", car.t);
         std::cout << "\n";
@@ -111,4 +116,112 @@ void gotoxy(short x, short y)
     COORD Cursor_an_Pos = { x, y };
     hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleCursorPosition(hConsoleOutput, Cursor_an_Pos);
+}
+
+
+
+void box(int x, int y, HANDLE handle, int& select) {
+    std::vector <chartext> menu_items;
+    chartext c, c1, c2, c3, c4;
+    strcpy_s(c.t, "          +-+ +-+ +-+ +-+ +-+");
+    strcpy_s(c.t2, "          |s| |t| |a| |r| |t|");
+    strcpy_s(c.t3, "          +-+ +-+ +-+ +-+ +-+");
+    menu_items.push_back(c);
+    strcpy_s(c1.t, " +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+");
+    strcpy_s(c1.t2, " |t| |o| |p| |p| |l| |a| |y| |e| |r| |s|");
+    strcpy_s(c1.t3, " +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+");
+    menu_items.push_back(c1);
+    strcpy_s(c2.t, "            +-+ +-+ +-+ +-+");
+    strcpy_s(c2.t2, "            |r| |u| |l| |e|");
+    strcpy_s(c2.t3, "            +-+ +-+ +-+ +-+");
+    menu_items.push_back(c2);
+    strcpy_s(c3.t, "          +-+ +-+ +-+ +-+ +-+");
+    strcpy_s(c3.t2, "          |a| |b| |o| |u| |t|");
+    strcpy_s(c3.t3, "          +-+ +-+ +-+ +-+ +-+");
+    menu_items.push_back(c3);
+    int h = menu_items.size() * 4;
+    int w = 50;
+    select = 0;
+    int y0 = y;
+    while (true) {
+        cls(handle);
+        SetConsoleTextAttribute(handle, 12);
+        std::cout << "\n    _________________ _______ _____________________________   ___________       ________________ ______  _____________\n";
+        std::cout << "    __  ____/___  __ \\__  __ \\__  ___/__  ___/____  _/___  | / /__  ____/       __  ____/___    |___   |/  /___  ____/\n";
+        std::cout << "    _  /     __  /_/ /_  / / /_____ \\ _____ \\  __  /  __   |/ / _  / __         _  / __  __  /| |__  /|_/ / __  __/   \n";
+        std::cout << "    / /___   _  _, _/ / /_/ / ____/ / ____/ / __/ /   _  /|  /  / /_/ /         / /_/ /  _  ___ |_  /  / /  _  /___ \n";
+        std::cout << "    \\____/   /_/ |_|  \\____/  /____/  /____/  /___/   /_/ |_/   \\____/          \\____/   /_/  |_|/_/  /_/   /_____/   \n";
+        SetConsoleTextAttribute(handle, 14);
+        gotoxy(x, y);
+        std::cout << char(218);
+        gotoxy(x + w, y);
+        std::cout << char(191);
+
+        for (int i = 0; i < menu_items.size(); i++) {
+
+            if (i == 0) {
+                gotoxy(x + 1, y);
+                for (int j = x; j <= x + w - 2; j++) {
+                    std::cout << char(196);
+                }
+            }
+            if (i == select) {
+                SetConsoleTextAttribute(handle, 11);
+            }
+
+            gotoxy(x + 5, y + i + 1);
+            printf("%s", menu_items[i].t);
+
+            gotoxy(x + 5, y + i + 2);
+            printf("%s", menu_items[i].t2);
+
+            gotoxy(x + 5, y + i + 3);
+            printf("%s", menu_items[i].t3);
+            SetConsoleTextAttribute(handle, 14);
+            gotoxy(x, y + i + 1);
+            std::cout << char(179);
+            gotoxy(x + w, y + i + 1);
+            std::cout << char(179);
+
+            gotoxy(x, y + i + 2);
+            std::cout << char(179);
+            gotoxy(x + w, y + i + 2);
+            std::cout << char(179);
+
+            gotoxy(x, y + i + 3);
+            std::cout << char(179);
+            gotoxy(x + w, y + i + 3);
+            std::cout << char(179);
+            if (i == menu_items.size() - 1) {
+                gotoxy(x, y + 7);
+                for (int j = x; j <= x + w - 1; j++) {
+                    std::cout << char(196);
+                }
+                gotoxy(x, y + 7);
+                std::cout << char(192);
+                gotoxy(x + w, y + 7);
+                std::cout << char(217);
+                y = y0;
+            }
+            else y += 2;
+        }
+        SetConsoleTextAttribute(handle, 11);
+        std::cout << "\n\n                                                   _/\\______\\\\__\n";
+        std::cout << "                                                  / ,-. -|-  ,-.`-.\n";
+        std::cout << "                                                `( o )----( o )-'\n";
+        std::cout << "                                                  `-'      `-'\n";
+        int key = _getch();
+        if ((int)key == 80 || key == 's' || key == 'S') {
+            select++;
+            if (select > menu_items.size() - 1) select = 0;
+        }
+        if (key == 72 || key == 'W' || key == 'w') {
+            select--;
+            if (select < 0) select = menu_items.size() - 1;
+        }
+        if (key == 13) {
+            break;
+        }
+        cls(handle);
+    }
 }
