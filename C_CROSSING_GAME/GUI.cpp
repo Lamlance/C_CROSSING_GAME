@@ -53,11 +53,11 @@ void gameIntro(HANDLE handle) {
         std::cout << "\n";
         gotoxy(car3.x, car3.y);
         printf("%s", car3.t);
-        car.x += 4;
-        car1.x += 4;
-        car2.x += 4;
-        car3.x += 4;
-        k += 4;
+        car.x += 7;
+        car1.x += 7;
+        car2.x += 7;
+        car3.x += 7;
+        k += 7;
         Sleep(300);
         cls(handle);
         if (car.x >= consoleWidth) break;
@@ -224,4 +224,51 @@ void box(int x, int y, HANDLE handle, int& select) {
         }
         cls(handle);
     }
+}
+
+
+void rule(HANDLE handle, int& option) {
+
+    while (true) {
+        cls(handle);
+        SetConsoleTextAttribute(handle, 14);
+        std::cout << "\n\n";
+        std::cout << "                                     ______     __  __     __         ______    \n";
+        std::cout << "                                    /\\  == \\   /\\ \\/\\ \\   /\\ \\       /\\  ___\\   \n";
+        std::cout << "                                    \\ \\  __<   \\ \\ \\_\\ \\  \\ \\ \\____  \\ \\  __\\  \n";
+        std::cout << "                                     \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_____\\  \\ \\_____\\ \n";
+        std::cout << "                                      \\/_/ /_/   \\/_____/   \\/_____/   \\/_____/ \n";
+        SetConsoleTextAttribute(handle, 12);
+        std::cout << "\n                                                      CONTROL \n";
+        SetConsoleTextAttribute(handle, 11);
+        std::cout << "                                              ____                   ____ \n";
+        std::cout << "                                    UP:      ||W ||        DOWN:    ||S ||\n";
+        std::cout << "                                             ||__||                 ||__||\n";
+        std::cout << "                                             |/__\\|                |/__\\|\n";
+        std::cout << "                                              ____                   ____ \n";
+        std::cout << "                                    LEFT:    ||A ||        RIGHT:   ||D ||\n";
+        std::cout << "                                             ||__||                 ||__||\n";
+        std::cout << "                                             |/__\\|                |/__\\|\n";
+        std::cout << "\n                                    MOVE UP, DOWN, LEFT, RIGHT TO CROSS THE ROAD\n";
+        std::cout << "           WHEN THE RED TRAFFIC LIGHT IS ON, VEHICLES WILL STOP. IF HIT ANIMAL OR VEHICLE, THE GAME IS ENDED\n";
+        std::cout << "\n";
+
+        gotoxy(55, 21);
+        if (option == 5) {
+            SetConsoleTextAttribute(handle, 12);
+        }
+        std::cout << "EXIT";
+        int key = _getch();
+        if ((int)key == 80 || key == 's' || key == 'S') {
+
+            option = 5;
+        }
+
+        if (key == 13 && option == 5) {
+
+            break;
+        }
+        SetConsoleTextAttribute(handle, 11);
+    }
+    cls(handle);
 }

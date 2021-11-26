@@ -20,3 +20,5 @@ void cls(HANDLE hConsole);
 void gameIntro(HANDLE handle);
 void gotoxy(short x, short y);
 void box(int x, int y, HANDLE h, int& select);
+void rule(HANDLE handle, int& option);
+

@@ -56,6 +56,10 @@ void dogame()
 }
 
 
+void rungame() {
+
+}
+
 int main()
 {
 	/*for (unsigned char i = 0; i < UCHAR_MAX; i++)
@@ -113,8 +117,11 @@ int main()
 			std::cout << "Exit";
 		}
 	}
-
-
+	else if (select == 2) {
+		rule(handle, select);
+		if (select == 5)
+			box(33, 8, handle, select);
+	}
 	return 0;
 }
 
