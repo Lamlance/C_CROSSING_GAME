@@ -244,11 +244,11 @@ void rule(HANDLE handle, int& option) {
         std::cout << "                                              ____                   ____ \n";
         std::cout << "                                    UP:      ||W ||        DOWN:    ||S ||\n";
         std::cout << "                                             ||__||                 ||__||\n";
-        std::cout << "                                             |/__\\|                |/__\\|\n";
+        std::cout << "                                             |/__\\|                 |/__\\|\n";
         std::cout << "                                              ____                   ____ \n";
         std::cout << "                                    LEFT:    ||A ||        RIGHT:   ||D ||\n";
         std::cout << "                                             ||__||                 ||__||\n";
-        std::cout << "                                             |/__\\|                |/__\\|\n";
+        std::cout << "                                             |/__\\|                 |/__\\|\n";
         std::cout << "\n                                    MOVE UP, DOWN, LEFT, RIGHT TO CROSS THE ROAD\n";
         std::cout << "           WHEN THE RED TRAFFIC LIGHT IS ON, VEHICLES WILL STOP. IF HIT ANIMAL OR VEHICLE, THE GAME IS ENDED\n";
         std::cout << "\n";
