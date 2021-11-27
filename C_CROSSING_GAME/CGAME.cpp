@@ -261,13 +261,13 @@ void CGAME::save()
 
 void CGAME::saveGame(std::string fileName)
 {
-	std::ofstream file;
-	file.open(fileName);
-	if (file.fail())
+	std::ofstream file(fileName);
+	
+	/*if (file.fail())
 	{
 		std::cout << "Cannot open file at " << fileName << std::endl;
 		return;
-	}
+	}*/
 	std::cout << "Saving..." << std::endl; Sleep(1);
 
 	file << GAME_HEIGHT << " " << GAME_WIDTH << std::endl;
@@ -306,7 +306,14 @@ void CGAME::loadGame(std::string fileName)
 		std::cout << "Failed to open this file!" << std::endl;
 		return;
 	}
-	
+
+	for (int y = 0; y < GAME_HEIGHT; y++)
+	{
+		for (int x = 0; x < GAME_WIDTH; x++)
+		{
+			gameBoard[y][x] = '.';
+		}
+	}
 	int hight, width;
 	file >> hight >> width;
 	//std::cout << hight << " " << width << std::endl;

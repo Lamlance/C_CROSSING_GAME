@@ -8,6 +8,7 @@
 #include <windows.h>
 #include "CGAME.h"
 #include<conio.h>
+#include <string>
 static CGAME game;
 bool IS_RUN = true;
 char MOVE = '1';
@@ -62,7 +63,7 @@ int main()
 	}
 
 	return 0;*/
-
+	std::string filepath;
 	std::thread th1(dogame);
 	while (IS_RUN)
 	{
@@ -72,12 +73,34 @@ int main()
 		// pause
 		if (MOVE == 'p')
 		{
-			SuspendThread(th1.native_handle());
+			SuspendThread((HANDLE)th1.native_handle());
 		}
 		// continue
 		else if(MOVE == 'c')
 		{
-			ResumeThread(th1.native_handle());
+			ResumeThread((HANDLE)th1.native_handle());
+		}
+		else if(MOVE == 'k')
+		{
+			system("cls");
+			SuspendThread((HANDLE)th1.native_handle());
+			std::cout << "Save file name: ";
+			std::getline(std::cin, filepath);
+			game.saveGame(filepath);
+			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+			ResumeThread((HANDLE)th1.native_handle());
+			system("cls");
+		}
+		else if(MOVE == 'l')
+		{
+			SuspendThread((HANDLE)th1.native_handle());
+			system("cls");
+			std::cout << "Load file path: ";
+			std::getline(std::cin, filepath);
+			game.loadGame(filepath);
+			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+			ResumeThread((HANDLE)th1.native_handle());
+			system("cls");
 		}
 		else
 		{
@@ -86,21 +109,7 @@ int main()
 				game.input(MOVE);
 			}
 		}
-		//chua biet code ntn de dua vao su dung save voi load
-		/*if (MOVE == 'l') {
-			SuspendThread(th1.native_handle());
-			std::cout << "Inter name fileSave: ";
-			std::string path;
-			std::cin >> path;
-			game.saveGame(path);
-		}*/
-		/*std::cout << "Continue(c) or Exit(e)"<<std::endl;
-		if (MOVE == 'c') {
-				ResumeThread(th1.native_handle());
-			}
-		else if (MOVE == 'e') {
-				game.isDone();
-		}*/
+		
 		
 		MOVE = '1';
 		IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
@@ -126,3 +135,18 @@ int main()
 	return 0;
 }
 
+//chua biet code ntn de dua vao su dung save voi load
+		/*if (MOVE == 'l') {
+			SuspendThread(th1.native_handle());
+			std::cout << "Inter name fileSave: ";
+			std::string path;
+			std::cin >> path;
+			game.saveGame(path);
+		}*/
+		/*std::cout << "Continue(c) or Exit(e)"<<std::endl;
+		if (MOVE == 'c') {
+				ResumeThread(th1.native_handle());
+			}
+		else if (MOVE == 'e') {
+				game.isDone();
+		}*/

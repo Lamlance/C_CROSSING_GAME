@@ -37,7 +37,7 @@ public:
 			delete[] gameBoard[i];
 		}
 	}
-	void CHANGE_GAME_HANDLE(HANDLE poi) { gamethreadHandler = poi; };
+	//void CHANGE_GAME_HANDLE(HANDLE poi) { gamethreadHandler = poi; };
 private:
 	CPEOPLE pep;
 	std::vector<CCAR> carVct;
@@ -45,7 +45,7 @@ private:
 	std::vector<CDINOSAUR> dinoVct;
 	std::vector<CELEPHANT> eleVct;
 	char** gameBoard;
-	HANDLE gamethreadHandler;
+	//HANDLE gamethreadHandler;
 };
 
 
