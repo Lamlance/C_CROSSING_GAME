@@ -127,9 +127,9 @@ void box(int x, int y, HANDLE handle, int& select) {
     strcpy_s(c.t2, "          |s| |t| |a| |r| |t|");
     strcpy_s(c.t3, "          +-+ +-+ +-+ +-+ +-+");
     menu_items.push_back(c);
-    strcpy_s(c1.t, " +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+");
-    strcpy_s(c1.t2, " |t| |o| |p| |p| |l| |a| |y| |e| |r| |s|");
-    strcpy_s(c1.t3, " +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+");
+    strcpy_s(c1.t, "    +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+");
+    strcpy_s(c1.t2, "    |l| |o| |a| |d| |g| |a| |m| |e|");
+    strcpy_s(c1.t3, "    +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+");
     menu_items.push_back(c1);
     strcpy_s(c2.t, "            +-+ +-+ +-+ +-+");
     strcpy_s(c2.t2, "            |r| |u| |l| |e|");
