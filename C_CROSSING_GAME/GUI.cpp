@@ -284,7 +284,7 @@ void about(HANDLE handle, int& option) {
         std::cout << "                                   /  /_\  \|    |  _/ /   |   \|    |   / |    |     |    |   /\_____  \  \n";
         std::cout << "                                  /    |    \    |   \/    |    \    |  /  |    |     |    |  / /        \ \n";
         std::cout << "                                  \____|__  /______  /\_______  /______/   |____|     |______/ /_______  / \n";
-        std::cout << "                                          \/       \/         \/                                      \/  \n";
+        std::cout << "                                          \/       \/         \/                                       \/  \n";
         SetConsoleTextAttribute(handle, 11);
         std::cout << "                                                             NGUYEN XUAN HOANG LAM                     \n";
         std::cout << "                                                             TRAN NGUYEN LAN TRINH                     \n";
