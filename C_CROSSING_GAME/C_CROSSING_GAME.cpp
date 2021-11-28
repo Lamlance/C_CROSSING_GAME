@@ -9,6 +9,8 @@
 #include "CGAME.h"
 #include<conio.h>
 #include <string>
+#include "GUI.h"
+
 static CGAME game;
 bool IS_RUN = true;
 char MOVE = '1';
@@ -55,6 +57,11 @@ void dogame()
 	}
 }
 
+
+void rungame() {
+
+}
+
 int main()
 {
 	/*for (unsigned char i = 0; i < UCHAR_MAX; i++)
@@ -64,74 +71,85 @@ int main()
 
 	return 0;*/
 	std::string filepath;
-	std::thread th1(dogame);
-	while (IS_RUN)
-	{
-		// use _getch() in order not to hit enter while moving
-		MOVE = _getch();
-		std::cin.clear();
-		// pause
-		if (MOVE == 'p')
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	gameIntro(handle);
+	int select = 0;
+	box(33, 8, handle, select);
+	if (select == 0) 
+  {
+		std::thread th1(dogame);
+  }else if (select == 2) {
+		rule(handle, select);
+		if (select == 5)
+			box(33, 8, handle, select);
+	}
+		while (IS_RUN)
 		{
-			SuspendThread((HANDLE)th1.native_handle());
+			// use _getch() in order not to hit enter while moving
+			MOVE = _getch();
+			std::cin.clear();
+			// pause
+			if (MOVE == 'p')
+			{
+				SuspendThread(th1.native_handle());
+			}else if(MOVE == 'k')
+		  {
+			  system("cls");
+			  SuspendThread((HANDLE)th1.native_handle());
+			  std::cout << "Save file name: ";
+			  std::getline(std::cin, filepath);
+			  game.saveGame(filepath);
+			  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+			  ResumeThread((HANDLE)th1.native_handle());
+			  system("cls");
+		  }
+      else if(MOVE == 'l')
+		  {
+			  SuspendThread((HANDLE)th1.native_handle());
+			  system("cls");
+			  std::cout << "Load file path: ";
+			  std::getline(std::cin, filepath);
+			  game.loadGame(filepath);
+			  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+			  ResumeThread((HANDLE)th1.native_handle());
+			  system("cls");
+      }
+			// continue
+			else if (MOVE == 'c')
+			{
+			  ResumeThread((HANDLE)th1.native_handle());
+			}
+			else
+			{
+				if (IS_RUN)
+				{
+					game.input(MOVE);
+				}
+			}
+			MOVE = '1';
+			IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
 		}
-		// continue
-		else if(MOVE == 'c')
+		th1.join();
+    
+		if (game.isDead())
 		{
-			ResumeThread((HANDLE)th1.native_handle());
+			system("cls");
+			game.draw();
+			std::cout << "DED";
 		}
-		else if(MOVE == 'k')
+		else if (game.isDone())
 		{
-			system("cls");
-			SuspendThread((HANDLE)th1.native_handle());
-			std::cout << "Save file name: ";
-			std::getline(std::cin, filepath);
-			game.saveGame(filepath);
-			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-			ResumeThread((HANDLE)th1.native_handle());
-			system("cls");
-		}
-		else if(MOVE == 'l')
-		{
-			SuspendThread((HANDLE)th1.native_handle());
-			system("cls");
-			std::cout << "Load file path: ";
-			std::getline(std::cin, filepath);
-			game.loadGame(filepath);
-			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-			ResumeThread((HANDLE)th1.native_handle());
-			system("cls");
+			game.update(true, true);
+			std::cout << "DONE";
 		}
 		else
 		{
-			if (IS_RUN)
-			{
-				game.input(MOVE);
-			}
+			game.update(true, true);
+			std::cout << "Exit";
 		}
 		
-		
-		MOVE = '1';
-		IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
 	}
-	th1.join();
-	if (game.isDead())
-	{
-		system("cls");
-		game.draw();
-		std::cout << "DED";
-	}
-	else if (game.isDone())
-	{
-		game.update(true,true);
-		std::cout << "DONE";
-	}
-	else
-	{
-		game.update(true, true);
-		std::cout << "Exit";
-	}
-
+	
 	return 0;
 }
 
