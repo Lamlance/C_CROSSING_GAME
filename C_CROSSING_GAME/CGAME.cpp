@@ -85,12 +85,29 @@ void CGAME::draw()
 
 	for (int y = 0; y < GAME_HEIGHT; y++)
 	{
-		std::cout << char(219);
-		for (int x = 0; x < GAME_WIDTH; x++)
+		if (y == carVct[0].getY() || y == truckVct[0].getY())
 		{
-			std::cout << char(gameBoard[y][x]);
+			//Chuyen do xanh
+			std::cout << char(219);
+			//Trang tro lai
+			for (int x = 0; x < GAME_WIDTH; x++)
+			{
+				std::cout << char(gameBoard[y][x]);
+			}
+			//Chuyen do xanh
+			std::cout << char(219) << std::endl;
+			//Trang tro lai
 		}
-		std::cout << char(219) << std::endl;
+		else
+		{
+			std::cout << char(219);
+			for (int x = 0; x < GAME_WIDTH; x++)
+			{
+				std::cout << char(gameBoard[y][x]);
+			}
+			std::cout << char(219) << std::endl;
+		}
+		
 	}
 
 	std::cout << char(219);
@@ -133,7 +150,11 @@ void CGAME::dinoUpdate(bool green)
 
 void CGAME::truckUpdate(bool green)
 {
-	if (!green) { return; }
+	if (!green) 
+	{ 
+		carIsStop = true;
+		return; 
+	}
 	int vctSize = truckVct.size();
 	for (int i = 0; i < vctSize; i++)
 	{
@@ -149,7 +170,11 @@ void CGAME::truckUpdate(bool green)
 }
 void CGAME::carUpdate(bool green)
 {
-	if (!green) { return; }
+	if (!green) 
+	{
+		carIsStop = true;
+		return; 
+	}
 	int vctSize = carVct.size();
 	for (int i = 0; i < vctSize; i++)
 	{
@@ -181,7 +206,8 @@ void CGAME::update(int stop,bool redLight)
 	
 }
 
-CGAME::CGAME() : gameBoard(nullptr), carVct(0), truckVct(0), pep(GAME_WIDTH, GAME_HEIGHT - 1),dinoVct(0),eleVct(0)
+CGAME::CGAME() : 
+	gameBoard(nullptr), carVct(0), truckVct(0), pep(GAME_WIDTH, GAME_HEIGHT - 1),dinoVct(0),eleVct(0), carIsStop(false)
 {
 	//Crate game board
 	gameBoard = new char* [GAME_HEIGHT];
@@ -194,54 +220,111 @@ CGAME::CGAME() : gameBoard(nullptr), carVct(0), truckVct(0), pep(GAME_WIDTH, GAM
 		}
 	}
 
-	//Line of car
-	for (int a = 0; a < GAME_WIDTH; a += CCAR::dist)
+	for (int theHeight = 0; GAME_HEIGHT - theHeight > 1; )
 	{
-		if (a + CCAR::size < GAME_WIDTH)
+		//Line of car
+		theHeight += 2;
+		if (GAME_HEIGHT - theHeight <= 0) { break; }
+		for (int a = 0; a < GAME_WIDTH; a += CCAR::dist)
 		{
-			for (int b = 0; b < CCAR::size && (b + CCAR::size) < GAME_WIDTH; b++)
+			if (a + CCAR::size < GAME_WIDTH)
 			{
-				carVct.push_back(CCAR(a + b, GAME_HEIGHT - 2));
+				for (int b = 0; b < CCAR::size && (b + CCAR::size) < GAME_WIDTH; b++)
+				{
+					carVct.push_back(CCAR(a + b, GAME_HEIGHT - theHeight));
+				}
 			}
 		}
-	}
 
-	//Line of truck
-	for (int a = 0; a < GAME_WIDTH; a += CTRUCK::dist)
-	{
-		if (a + CTRUCK::size < GAME_WIDTH)
+		//Line of truck
+		theHeight += 1;
+		if (GAME_HEIGHT - theHeight <= 0) { break; }
+		for (int a = 0; a < GAME_WIDTH; a += CTRUCK::dist)
 		{
-			for (int b = 0; b < CTRUCK::size && (b + CTRUCK::size) < GAME_WIDTH; b++)
+			if (a + CTRUCK::size < GAME_WIDTH)
 			{
-				truckVct.push_back(CTRUCK(a + b, GAME_HEIGHT - 3));
+				for (int b = 0; b < CTRUCK::size && (b + CTRUCK::size) < GAME_WIDTH; b++)
+				{
+					truckVct.push_back(CTRUCK(a + b, GAME_HEIGHT - theHeight));
+				}
 			}
 		}
-	}
 
-	//Line of dino
-	for (int a = 0; a < GAME_WIDTH; a += CDINOSAUR::dist)
-	{
-		if (a + CDINOSAUR::size < GAME_WIDTH)
+		//Line of ele
+		theHeight += 2;
+		if (GAME_HEIGHT - theHeight <= 0) { break; }
+		for (int a = 0; a < GAME_WIDTH; a += CELEPHANT::dist)
 		{
-			for (int b = 0; b < CDINOSAUR::size && (b + CDINOSAUR::size) < GAME_WIDTH; b++)
+			if (a + CELEPHANT::size < GAME_WIDTH)
 			{
-				dinoVct.push_back(CDINOSAUR(a + b, GAME_HEIGHT - 6));
+				for (int b = 0; b < CELEPHANT::size && (b + CELEPHANT::size) < GAME_WIDTH; b++)
+				{
+					eleVct.push_back(CELEPHANT(a + b, GAME_HEIGHT - theHeight));
+				}
 			}
 		}
-	}
-	
-	//Line of ele
-	for (int a = 0; a < GAME_WIDTH; a += CELEPHANT::dist)
-	{
-		if (a + CELEPHANT::size < GAME_WIDTH)
-		{
-			for (int b = 0; b < CELEPHANT::size && (b + CELEPHANT::size) < GAME_WIDTH; b++)
-			{
-				eleVct.push_back(CELEPHANT(a + b, GAME_HEIGHT - 5));
-			}
-		}
-	}
 
+		//Line of dino
+		theHeight += 1;
+		if (GAME_HEIGHT - theHeight <= 0) { break; }
+		for (int a = 0; a < GAME_WIDTH; a += CDINOSAUR::dist)
+		{
+			if (a + CDINOSAUR::size < GAME_WIDTH)
+			{
+				for (int b = 0; b < CDINOSAUR::size && (b + CDINOSAUR::size) < GAME_WIDTH; b++)
+				{
+					dinoVct.push_back(CDINOSAUR(a + b, GAME_HEIGHT - theHeight));
+				}
+			}
+		}
+	}
+	////Line of car
+	//for (int a = 0; a < GAME_WIDTH; a += CCAR::dist)
+	//{
+	//	if (a + CCAR::size < GAME_WIDTH)
+	//	{
+	//		for (int b = 0; b < CCAR::size && (b + CCAR::size) < GAME_WIDTH; b++)
+	//		{
+	//			carVct.push_back(CCAR(a + b, GAME_HEIGHT - 2));
+	//		}
+	//	}
+	//}
+
+	////Line of truck
+	//for (int a = 0; a < GAME_WIDTH; a += CTRUCK::dist)
+	//{
+	//	if (a + CTRUCK::size < GAME_WIDTH)
+	//	{
+	//		for (int b = 0; b < CTRUCK::size && (b + CTRUCK::size) < GAME_WIDTH; b++)
+	//		{
+	//			truckVct.push_back(CTRUCK(a + b, GAME_HEIGHT - 3));
+	//		}
+	//	}
+	//}
+
+	////Line of dino
+	//for (int a = 0; a < GAME_WIDTH; a += CDINOSAUR::dist)
+	//{
+	//	if (a + CDINOSAUR::size < GAME_WIDTH)
+	//	{
+	//		for (int b = 0; b < CDINOSAUR::size && (b + CDINOSAUR::size) < GAME_WIDTH; b++)
+	//		{
+	//			dinoVct.push_back(CDINOSAUR(a + b, GAME_HEIGHT - 6));
+	//		}
+	//	}
+	//}
+	//
+	////Line of ele
+	//for (int a = 0; a < GAME_WIDTH; a += CELEPHANT::dist)
+	//{
+	//	if (a + CELEPHANT::size < GAME_WIDTH)
+	//	{
+	//		for (int b = 0; b < CELEPHANT::size && (b + CELEPHANT::size) < GAME_WIDTH; b++)
+	//		{
+	//			eleVct.push_back(CELEPHANT(a + b, GAME_HEIGHT - 5));
+	//		}
+	//	}
+	//}
 
 }
 

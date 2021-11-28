@@ -10,8 +10,8 @@
 #include "CTRUCK.h"
 #include <windows.h>
 
-#define GAME_WIDTH 16
-#define GAME_HEIGHT 7
+#define GAME_WIDTH 20
+#define GAME_HEIGHT 15
 
 class CGAME
 {
@@ -39,6 +39,7 @@ public:
 	}
 	//void CHANGE_GAME_HANDLE(HANDLE poi) { gamethreadHandler = poi; };
 private:
+	bool carIsStop;
 	CPEOPLE pep;
 	std::vector<CCAR> carVct;
 	std::vector<CTRUCK> truckVct;
