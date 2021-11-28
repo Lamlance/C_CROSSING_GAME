@@ -272,3 +272,41 @@ void rule(HANDLE handle, int& option) {
     }
     cls(handle);
 }
+
+void about(HANDLE handle, int& option) {
+
+    while (true) {
+        cls(handle);
+        SetConsoleTextAttribute(handle, 14);
+        std::cout << "\n\n";
+        std::cout << "                                      _____ __________ ________   ____ ______________  ____ ___  _________    \n";
+        std::cout << "                                    /  _  \\______   \\_____  \ |    |   \__    ___/  |    |   \/   _____/   \n";
+        std::cout << "                                   /  /_\  \|    |  _/ /   |   \|    |   / |    |     |    |   /\_____  \  \n";
+        std::cout << "                                  /    |    \    |   \/    |    \    |  /  |    |     |    |  / /        \ \n";
+        std::cout << "                                  \____|__  /______  /\_______  /______/   |____|     |______/ /_______  / \n";
+        std::cout << "                                          \/       \/         \/                                      \/  \n";
+        SetConsoleTextAttribute(handle, 11);
+        std::cout << "                                                             NGUYEN XUAN HOANG LAM                     \n";
+        std::cout << "                                                             TRAN NGUYEN LAN TRINH                     \n";
+        std::cout << "                                                               HAN THO NHAT PHU                        \n";
+        std::cout << "                                                               TRUONG GIA THINH                        \n";
+        std::cout << "\n";
+        /*gotoxy(55, 21);
+        if (option == 5) {
+            SetConsoleTextAttribute(handle, 12);
+        }
+        std::cout << "EXIT";
+        int key = _getch();
+        if ((int)key == 80 || key == 's' || key == 'S') {
+
+            option = 5;
+        }
+
+        if (key == 13 && option == 5) {
+
+            break;
+        }
+        SetConsoleTextAttribute(handle, 11);*/
+    }
+    cls(handle);
+}
