@@ -37,9 +37,6 @@
     <Filter Include="Source Files\GUI">
       <UniqueIdentifier>{fc0c9ce6-2a1f-424e-af23-0dca7b9c509e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\MAIN">
-      <UniqueIdentifier>{d1f2e1e1-2719-4956-bb3e-a4d61a9b4c45}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\CGAME">
       <UniqueIdentifier>{1753e3d2-92b6-452c-aed6-aae28224d21d}</UniqueIdentifier>
     </Filter>
@@ -60,20 +57,19 @@
     <ClCompile Include="GUI.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="C_CROSSING_GAME.cpp">
-      <Filter>Source Files\MAIN</Filter>
-    </ClCompile>
     <ClCompile Include="CGAME.cpp">
       <Filter>Source Files\CGAME</Filter>
     </ClCompile>
     <ClCompile Include="CCAR.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-
     <ClCompile Include="CDINOSAUR.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CELEPHANT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C_CROSSING_GAME.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -105,7 +101,6 @@
     <ClInclude Include="CCAR.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-
     <ClInclude Include="CDINOSAUR.h">
       <Filter>Header Files</Filter>
     </ClInclude>
