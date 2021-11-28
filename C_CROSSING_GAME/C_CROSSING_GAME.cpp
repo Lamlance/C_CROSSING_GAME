@@ -8,7 +8,9 @@
 #include <windows.h>
 #include "CGAME.h"
 #include<conio.h>
+#include <string>
 #include "GUI.h"
+
 static CGAME game;
 bool IS_RUN = true;
 char MOVE = '1';
@@ -68,61 +70,105 @@ int main()
 	}
 
 	return 0;*/
+	std::string filepath;
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	gameIntro(handle);
 	int select = 0;
-	box(33, 8, handle, select);
-	if (select == 0) {
-		std::thread th1(dogame);
-		while (IS_RUN)
+	do
+	{
+		box(33, 8, handle, select);
+		if (select == 2)
 		{
-			// use _getch() in order not to hit enter while moving
-			MOVE = _getch();
-			std::cin.clear();
-			// pause
-			if (MOVE == 'p')
-			{
-				SuspendThread(th1.native_handle());
-			}
-			// continue
-			else if (MOVE == 'c')
-			{
-				ResumeThread(th1.native_handle());
-			}
-			else
-			{
-				if (IS_RUN)
-				{
-					game.input(MOVE);
-				}
-			}
-			MOVE = '1';
-			IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
+			rule(handle, select);
 		}
-		th1.join();
-		if (game.isDead())
+		if (select == 5)
+		{
+			box(33, 8, handle, select);
+		}
+	} while (select != 0);
+
+	std::thread th1(dogame);
+	while (IS_RUN)
+	{
+		// use _getch() in order not to hit enter while moving
+		MOVE = _getch();
+		std::cin.clear();
+		// pause
+		if (MOVE == 'p')
+		{
+			SuspendThread(th1.native_handle());
+		}
+		else if (MOVE == 'c')
+		{
+			ResumeThread((HANDLE)th1.native_handle());
+		}
+		else if (MOVE == 'k')
 		{
 			system("cls");
-			game.draw();
-			std::cout << "DED";
+			SuspendThread((HANDLE)th1.native_handle());
+			std::cout << "Save file name: ";
+			std::getline(std::cin, filepath);
+			game.saveGame(filepath);
+			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+			ResumeThread((HANDLE)th1.native_handle());
+			system("cls");
 		}
-		else if (game.isDone())
+		else if (MOVE == 'l')
 		{
-			game.update(true, true);
-			std::cout << "DONE";
+			SuspendThread((HANDLE)th1.native_handle());
+			system("cls");
+			std::cout << "Load file path: ";
+			std::getline(std::cin, filepath);
+			game.loadGame(filepath);
+			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+			ResumeThread((HANDLE)th1.native_handle());
+			system("cls");
 		}
 		else
 		{
-			game.update(true, true);
-			std::cout << "Exit";
+			if (IS_RUN)
+			{
+				game.input(MOVE);
+			}
 		}
+		MOVE = '1';
+		IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
 	}
-	else if (select == 2) {
-		rule(handle, select);
-		if (select == 5)
-			box(33, 8, handle, select);
+	th1.join();
+
+	if (game.isDead())
+	{
+		system("cls");
+		game.draw();
+		std::cout << "DED";
 	}
+	else if (game.isDone())
+	{
+		game.update(true, true);
+		std::cout << "DONE";
+	}
+	//else
+	//{
+	//	game.update(true, true);
+	//	std::cout << "Exit";
+	//}
 	return 0;
 }
+	
 
 
+//chua biet code ntn de dua vao su dung save voi load
+		/*if (MOVE == 'l') {
+			SuspendThread(th1.native_handle());
+			std::cout << "Inter name fileSave: ";
+			std::string path;
+			std::cin >> path;
+			game.saveGame(path);
+		}*/
+		/*std::cout << "Continue(c) or Exit(e)"<<std::endl;
+		if (MOVE == 'c') {
+				ResumeThread(th1.native_handle());
+			}
+		else if (MOVE == 'e') {
+				game.isDone();
+		}*/
