@@ -48,7 +48,7 @@ void dogame()
 		game.draw();
 		MOVE = ' ';
 		IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
-		std::this_thread::sleep_for(std::chrono::milliseconds(400));
+		std::this_thread::sleep_for(std::chrono::milliseconds(600));
 		num = num % 7;
 	}
 	if (IS_RUN == false)
@@ -126,7 +126,7 @@ int main()
 		}
 		else
 		{
-			if (IS_RUN)
+			if (IS_RUN && (MOVE == 'a' || MOVE == 'w' || MOVE == 's' || MOVE == 'd'))
 			{
 				game.input(MOVE);
 			}
@@ -144,7 +144,6 @@ int main()
 	}
 	else if (game.isDone())
 	{
-		game.update(true, true);
 		std::cout << "DONE";
 	}
 	//else

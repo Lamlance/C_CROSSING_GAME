@@ -24,6 +24,8 @@ void CGAME::input(char cmd)
 	{
 		gameBoard[pep.mY][pep.mX] = '.';
 		pep.Down(GAME_HEIGHT);
+		pep.isDead = pep.isDead || (gameBoard[pep.mY][pep.mX] != '.');
+		pep.isWin = pep.isWin || (pep.mY == 0);
 		return;
 	}
 	case 'a':
@@ -38,6 +40,8 @@ void CGAME::input(char cmd)
 	{
 		gameBoard[pep.mY][pep.mX] = '.';
 		pep.Right(GAME_WIDTH);
+		pep.isDead = pep.isDead || (gameBoard[pep.mY][pep.mX] != '.');
+		pep.isWin = pep.isWin || (pep.mY == 0);
 		return;
 	}
 	default:
@@ -48,6 +52,10 @@ void CGAME::input(char cmd)
 void CGAME::draw()
 {
 	system("cls");
+
+	//init people character
+	gameBoard[pep.mY][pep.mX] = '^';
+
 	//init car characte
 	int vctSize = carVct.size();
 	for (int i = 0; i < vctSize; i++)
@@ -75,9 +83,6 @@ void CGAME::draw()
 	{
 		gameBoard[eleVct[i].mY][eleVct[i].mX] = CELEPHANT::symb;
 	}
-
-	//init people character
-	gameBoard[pep.mY][pep.mX] = '^';
 
 	std::cout << char(219);
 	for (int x = 0; x < GAME_WIDTH; x++) { std::cout << char(219); }
@@ -121,12 +126,12 @@ void CGAME::eleUpdate(bool green)
 	int vctSize = eleVct.size();
 	for (int i = 0; i < vctSize; i++)
 	{
-		if (gameBoard[eleVct[i].mY][eleVct[i].mX] != '^')
+		if (true)
 		{
 			gameBoard[eleVct[i].mY][eleVct[i].mX] = '.';
 		}
 		eleVct[i].Move(GAME_WIDTH, CELEPHANT::spds);
-		pep.isDead = pep.isDead || (gameBoard[eleVct[i].mY][eleVct[i].mX] == '^');
+		pep.isDead = pep.isDead || havePep(eleVct[i].mX,eleVct[i].mY);
 		pep.isWin = pep.isWin || (pep.mY == 0);
 	}
 }
@@ -137,12 +142,12 @@ void CGAME::dinoUpdate(bool green)
 	int vctSize = dinoVct.size();
 	for (int i = 0; i < vctSize; i++)
 	{
-		if (gameBoard[dinoVct[i].mY][dinoVct[i].mX] != '^')
+		if (true)
 		{
 			gameBoard[dinoVct[i].mY][dinoVct[i].mX] = '.';
 		}
 		dinoVct[i].Move(GAME_WIDTH, CDINOSAUR::spds);
-		pep.isDead = pep.isDead || (gameBoard[dinoVct[i].mY][dinoVct[i].mX] == '^');
+		pep.isDead = pep.isDead || havePep(dinoVct[i].mX, dinoVct[i].mY);
 		pep.isWin = pep.isWin || (pep.mY == 0);
 	}
 }
@@ -158,12 +163,12 @@ void CGAME::truckUpdate(bool green)
 	int vctSize = truckVct.size();
 	for (int i = 0; i < vctSize; i++)
 	{
-		if (gameBoard[truckVct[i].mY][truckVct[i].mX] != '^')
+		if (true)
 		{
 			gameBoard[truckVct[i].mY][truckVct[i].mX] = '.';
 		}
 		truckVct[i].Move(GAME_WIDTH, CTRUCK::spds);
-		pep.isDead = pep.isDead || (gameBoard[truckVct[i].mY][truckVct[i].mX] == '^');
+		pep.isDead = pep.isDead || havePep(truckVct[i].mX,truckVct[i].mY);
 		pep.isWin = pep.isWin || (pep.mY == 0);
 
 	}
@@ -178,33 +183,17 @@ void CGAME::carUpdate(bool green)
 	int vctSize = carVct.size();
 	for (int i = 0; i < vctSize; i++)
 	{
-		if (gameBoard[carVct[i].mY][carVct[i].mX] != '^')
+		if (true)
 		{
 			gameBoard[carVct[i].mY][carVct[i].mX] = '.';
 		}
 		carVct[i].Move(GAME_WIDTH, CCAR::spds);
-		pep.isDead = pep.isDead || (gameBoard[carVct[i].mY][carVct[i].mX] == '^');
+		pep.isDead = pep.isDead || havePep(carVct[i].mX, carVct[i].mY);
 		pep.isWin = pep.isWin || (pep.mY == 0);
 
 	}
 }
 
-void CGAME::update(int stop,bool redLight)
-{
-	system("cls");
-	if (redLight)
-	{
-		this->draw();
-		std::this_thread::sleep_for(std::chrono::milliseconds(10000));
-	}
-	else
-	{
-		this->carUpdate(stop % 3);
-		this->truckUpdate(stop % 2);
-		this->draw();
-	}
-	
-}
 
 CGAME::CGAME() : 
 	gameBoard(nullptr), carVct(0), truckVct(0), pep(GAME_WIDTH, GAME_HEIGHT - 1),dinoVct(0),eleVct(0), carIsStop(false)
@@ -278,54 +267,6 @@ CGAME::CGAME() :
 			}
 		}
 	}
-	////Line of car
-	//for (int a = 0; a < GAME_WIDTH; a += CCAR::dist)
-	//{
-	//	if (a + CCAR::size < GAME_WIDTH)
-	//	{
-	//		for (int b = 0; b < CCAR::size && (b + CCAR::size) < GAME_WIDTH; b++)
-	//		{
-	//			carVct.push_back(CCAR(a + b, GAME_HEIGHT - 2));
-	//		}
-	//	}
-	//}
-
-	////Line of truck
-	//for (int a = 0; a < GAME_WIDTH; a += CTRUCK::dist)
-	//{
-	//	if (a + CTRUCK::size < GAME_WIDTH)
-	//	{
-	//		for (int b = 0; b < CTRUCK::size && (b + CTRUCK::size) < GAME_WIDTH; b++)
-	//		{
-	//			truckVct.push_back(CTRUCK(a + b, GAME_HEIGHT - 3));
-	//		}
-	//	}
-	//}
-
-	////Line of dino
-	//for (int a = 0; a < GAME_WIDTH; a += CDINOSAUR::dist)
-	//{
-	//	if (a + CDINOSAUR::size < GAME_WIDTH)
-	//	{
-	//		for (int b = 0; b < CDINOSAUR::size && (b + CDINOSAUR::size) < GAME_WIDTH; b++)
-	//		{
-	//			dinoVct.push_back(CDINOSAUR(a + b, GAME_HEIGHT - 6));
-	//		}
-	//	}
-	//}
-	//
-	////Line of ele
-	//for (int a = 0; a < GAME_WIDTH; a += CELEPHANT::dist)
-	//{
-	//	if (a + CELEPHANT::size < GAME_WIDTH)
-	//	{
-	//		for (int b = 0; b < CELEPHANT::size && (b + CELEPHANT::size) < GAME_WIDTH; b++)
-	//		{
-	//			eleVct.push_back(CELEPHANT(a + b, GAME_HEIGHT - 5));
-	//		}
-	//	}
-	//}
-
 }
 
 void CGAME::save()

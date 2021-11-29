@@ -19,7 +19,7 @@ public:
 	CGAME();
 	void draw();
 
-	void update(int stop,bool redLight);
+	//void update(int stop,bool redLight);
 	void carUpdate(bool green = true);
 	void truckUpdate(bool green = true);
 	void dinoUpdate(bool green = true);
@@ -39,6 +39,10 @@ public:
 	}
 	//void CHANGE_GAME_HANDLE(HANDLE poi) { gamethreadHandler = poi; };
 private:
+	bool havePep(int xPos, int yPos)
+	{
+		return (xPos == pep.mX) && (yPos == pep.mY);
+	}
 	bool carIsStop;
 	CPEOPLE pep;
 	std::vector<CCAR> carVct;
