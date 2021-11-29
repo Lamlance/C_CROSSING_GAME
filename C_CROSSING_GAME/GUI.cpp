@@ -1,4 +1,4 @@
-#include "GUI.h"
+﻿#include "GUI.h"
 #include <vector>
 #include <conio.h>
 void gameIntro(HANDLE handle) {
@@ -139,7 +139,11 @@ void box(int x, int y, HANDLE handle, int& select) {
     strcpy_s(c3.t2, "          |a| |b| |o| |u| |t|");
     strcpy_s(c3.t3, "          +-+ +-+ +-+ +-+ +-+");
     menu_items.push_back(c3);
-    int h = menu_items.size() * 4;
+    strcpy_s(c4.t, "            +-+ +-+ +-+ +-+");
+    strcpy_s(c4.t2, "            |e| |x| |i| |t|");
+    strcpy_s(c4.t3, "            +-+ +-+ +-+ +-+");
+    menu_items.push_back(c4);
+    int h = menu_items.size() * 4 + 3;
     int w = 50;
     select = 0;
     int y0 = y;
@@ -193,13 +197,13 @@ void box(int x, int y, HANDLE handle, int& select) {
             gotoxy(x + w, y + i + 3);
             std::cout << char(179);
             if (i == menu_items.size() - 1) {
-                gotoxy(x, y + 7);
+                gotoxy(x, y + 8);
                 for (int j = x; j <= x + w - 1; j++) {
                     std::cout << char(196);
                 }
-                gotoxy(x, y + 7);
+                gotoxy(x, y + 8);
                 std::cout << char(192);
-                gotoxy(x + w, y + 7);
+                gotoxy(x + w, y + 8);
                 std::cout << char(217);
                 y = y0;
             }
@@ -254,17 +258,17 @@ void rule(HANDLE handle, int& option) {
         std::cout << "\n";
 
         gotoxy(55, 21);
-        if (option == 5) {
+        if (option == 6) {
             SetConsoleTextAttribute(handle, 12);
         }
         std::cout << "EXIT";
         int key = _getch();
         if ((int)key == 80 || key == 's' || key == 'S') {
 
-            option = 5;
+            option = 6;
         }
 
-        if (key == 13 && option == 5) {
+        if (key == 13 && option == 6) {
 
             break;
         }
@@ -278,35 +282,78 @@ void about(HANDLE handle, int& option) {
     while (true) {
         cls(handle);
         SetConsoleTextAttribute(handle, 14);
+        UINT h = GetConsoleOutputCP();
+        SetConsoleOutputCP(CP_UTF8);
         std::cout << "\n\n";
-        std::cout << "                                      _____ __________ ________   ____ ______________  ____ ___  _________    \n";
-        std::cout << "                                    /  _  \\______   \\_____  \ |    |   \__    ___/  |    |   \/   _____/   \n";
-        std::cout << "                                   /  /_\  \|    |  _/ /   |   \|    |   / |    |     |    |   /\_____  \  \n";
-        std::cout << "                                  /    |    \    |   \/    |    \    |  /  |    |     |    |  / /        \ \n";
-        std::cout << "                                  \____|__  /______  /\_______  /______/   |____|     |______/ /_______  / \n";
-        std::cout << "                                          \/       \/         \/                                       \/  \n";
+        std::cout << "                              _____ __________ ________   ____ ______________  ____ ___  _________    \n";
+        std::cout << "                            /  _  \\\\______   \\\\_____  \\ |    |   \\__    ___/  |    |   \\/   _____/   \n";
+        std::cout << "                           /  /_\\  \\|    |  _/ /   |   \\|    |   / |    |     |    |   /\\_____  \\  \n";
+        std::cout << "                          /    |    \\    |   \\/    |    \\    |  /  |    |     |    |  / /        \\ \n";
+        std::cout << "                          \\____|__  /______  /\\_______  /______/   |____|     |______/ /_______  / \n";
+        std::cout << "                                  \\/       \\/         \\/                                       \\/  \n";
         SetConsoleTextAttribute(handle, 11);
-        std::cout << "                                                             NGUYEN XUAN HOANG LAM                     \n";
-        std::cout << "                                                             TRAN NGUYEN LAN TRINH                     \n";
-        std::cout << "                                                               HAN THO NHAT PHU                        \n";
-        std::cout << "                                                               TRUONG GIA THINH                        \n";
+        std::cout << "\n\n";
+        std::cout << std::setfill(' ') << std::setw(82) << std::right << u8"20127047 - Nguyễn Xuân Hoàng Lâm\n";
+        std::cout << std::setfill(' ') << std::setw(80) << std::right << u8"20127591 - Hàn Thọ Nhật Phú\n";
+        std::cout << std::setfill(' ') << std::setw(81) << std::right << u8"20127653 - Trần Nguyễn Lan Trinh\n";
+        std::cout << std::setfill(' ') << std::setw(78) << std::right << u8"20127338 - Trương Gia Thịnh\n";
         std::cout << "\n";
-        /*gotoxy(55, 21);
-        if (option == 5) {
+        SetConsoleOutputCP(h);
+        gotoxy(57, 15);
+        if (option == 6) {
             SetConsoleTextAttribute(handle, 12);
         }
         std::cout << "EXIT";
         int key = _getch();
         if ((int)key == 80 || key == 's' || key == 'S') {
 
-            option = 5;
+            option = 6;
         }
 
-        if (key == 13 && option == 5) {
+        if (key == 13 && option == 6) {
 
             break;
         }
-        SetConsoleTextAttribute(handle, 11);*/
     }
     cls(handle);
+}
+
+void goodbye(HANDLE h) {
+    std::cout << "\n\n                                                                        __ \n";
+    std::cout << "                                                          _ _          |  |\n";
+    std::cout << "                                            ___ ___ ___ _| | |_ _ _ ___|  |\n";
+    std::cout << "                                           | . | . | . | . | . | | | -_|__|\n";
+    std::cout << "                                           |_  |___|___|___|___|_  |___|__|\n";
+    std::cout << "                                           |___|               |___|       \n";
+    Sleep(1500);
+    cls(h);
+}
+
+void win(HANDLE h) {
+    cls(h);
+std::cout << "\n\n";
+    std::cout << "                         __  __   ______   __  __       __ __ __    ________  ___   __        \n";
+    std::cout << "                        /_/\\/_/\\ /_____/\\ /_/\\/_/\\     /_//_//_/\\  /_______/\\/__/\\ /__/\\      \n";
+    std::cout << "                        \\ \\ \\ \\ \\\\:::_ \\ \\\\:\\ \\:\\ \\    \\:\\\\:\\\\:\\ \\ \\__.::._\\/\\::\\_\\\\  \\ \\    \n";
+    std::cout << "                         \\:\\_\\ \\ \\\\:\\ \\ \\ \\\\:\\ \\:\\ \\    \\:\\\\:\\\\:\\ \\   \\::\\ \\  \\:. `-\\  \\ \\  \n";
+    std::cout << "                          \\::::_\\/ \\:\\ \\ \\ \\\\:\\ \\:\\ \\    \\:\\\\:\\\\:\\ \\  _\\::\\ \\__\\:. _    \\ \\ \n";
+    std::cout << "                            \\::\\ \\  \\:\\_\\ \\ \\\\:\\_\\:\\ \\    \\:\\\\:\\\\:\\ \\/__\\::\\__/\\\\. \\`-\\  \\ \\\n";
+    std::cout << "                             \\__\\/   \\_____\\/ \\_____\\/     \\_______\\/\\________\\/ \\__\\/ \\__\\/\n";
+    Sleep(1500);
+    cls(h);
+}
+
+
+void lose(HANDLE h) {
+    cls(h);
+    std::cout << "\n\n";
+    std::cout << "                           :::   :::  ::::::::  :::    :::      :::        ::::::::   ::::::::  :::::::::: \n";
+    std::cout << "                           :+:   :+: :+:    :+: :+:    :+:      :+:       :+:    :+: :+:    :+: :+: \n";
+    std::cout << "                            +:+ +:+  +:+    +:+ +:+    +:+      +:+       +:+    +:+ +:+        +:+ \n";
+    std::cout << "                             +#++:   +#+    +:+ +#+    +:+      +#+       +#+    +:+ +#++:++#++ +#++:++# \n";
+    std::cout << "                              +#+    +#+    +#+ +#+    +#+      +#+       +#+    +#+        +#+ +#+  \n";
+    std::cout << "                              #+#    #+#    #+# #+#    #+#      #+#       #+#    #+# #+#    #+# #+#  \n";
+    std::cout << "                              ###     ########   ########       ########## ########   ########  ##########\n";
+    Sleep(1500);
+    cls(h);
 }
