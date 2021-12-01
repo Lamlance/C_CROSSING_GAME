@@ -6,6 +6,8 @@
 #include <chrono>
 #include <thread>
 #include <windows.h>
+#include <conio.h>
+#include "GUI.h"
 
 void CGAME::input(char cmd)
 {
@@ -91,31 +93,58 @@ void CGAME::draw()
 
 	for (int y = 0; y < GAME_HEIGHT; y++)
 	{
-		if (y == carVct[0].getY() || y == truckVct[0].getY())
-		{
-			//Chuyen do xanh
-			std::cout << char(219);
-			//Trang tro lai
-			for (int x = 0; x < GAME_WIDTH; x++)
-			{
-				std::cout << char(gameBoard[y][x]);
-			}
-			//Chuyen do xanh
-			std::cout << char(219) << std::endl;
-			//Trang tro lai
-		}
-		else
-		{
-			std::cout << char(219);
-			for (int x = 0; x < GAME_WIDTH; x++)
-			{
-				std::cout << char(gameBoard[y][x]);
-			}
-			std::cout << char(219) << std::endl;
-		}
-		
-	}
+		bool isCarTruckLine = false;
+		SetConsoleTextAttribute(Consolehandle, 15); // White
 
+		for (int i = 0; i < CarTruck_yLine.size(); i++)
+		{
+			if (CarTruck_yLine[i] == y)
+			{
+				//Chuyen do xanh
+				if (carIsStop == true)
+				{
+					SetConsoleTextAttribute(Consolehandle, 12); // Red
+				}
+				else
+				{
+					SetConsoleTextAttribute(Consolehandle, 10); // Green
+				}
+
+				std::cout << char(219);
+
+				SetConsoleTextAttribute(Consolehandle, 15); // White
+
+				for (int x = 0; x < GAME_WIDTH; x++)
+				{
+					std::cout << char(gameBoard[y][x]);
+				}
+
+				if (carIsStop == true)
+				{
+					SetConsoleTextAttribute(Consolehandle, 12); // Red
+				}
+				else
+				{
+					SetConsoleTextAttribute(Consolehandle, 10); // Green
+				}
+
+				std::cout << char(219) << std::endl;
+
+				SetConsoleTextAttribute(Consolehandle, 15); // White
+				isCarTruckLine = true;
+				break;
+			}
+		}
+		if (isCarTruckLine == false)
+		{
+			std::cout << char(219);
+			for (int x = 0; x < GAME_WIDTH; x++)
+			{
+				std::cout << char(gameBoard[y][x]);
+			}
+			std::cout << char(219) << std::endl;
+		}
+	}
 	std::cout << char(219);
 	for (int x = 0; x < GAME_WIDTH; x++) { std::cout << char(219); }
 	std::cout << char(219) << std::endl;
@@ -158,7 +187,6 @@ void CGAME::truckUpdate(bool green)
 {
 	if (!green) 
 	{ 
-		carIsStop = true;
 		return; 
 	}
 	int vctSize = truckVct.size();
@@ -178,10 +206,8 @@ void CGAME::carUpdate(bool green)
 {
 	if (!green) 
 	{
-		carIsStop = true;
 		return; 
 	}
-	
 	int vctSize = carVct.size();
 	for (int i = 0; i < vctSize; i++)
 	{
@@ -196,29 +222,17 @@ void CGAME::carUpdate(bool green)
 	}
 }
 
-void CGAME::update(int stop,bool redLight)
-{	
-	system("cls");
-	if (redLight)
-	{
-		this->draw();
-		
-		std::this_thread::sleep_for(std::chrono::milliseconds(10000));
-	}
-	else
-	{
-		
-		this->carUpdate(stop % 3);
-		this->truckUpdate(stop % 2);
-		this->draw();
-		
-	}
-	
-}
 
-CGAME::CGAME() : 
-	gameBoard(nullptr), carVct(0), truckVct(0), pep(GAME_WIDTH, GAME_HEIGHT - 1),dinoVct(0),eleVct(0), carIsStop(false)
+
+CGAME::CGAME(HANDLE &Consolehandler) :
+	gameBoard(nullptr), carVct(0), truckVct(0), pep(GAME_WIDTH, GAME_HEIGHT - 1),dinoVct(0),eleVct(0), carIsStop(false),
+	Consolehandle(Consolehandler)
 {
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+	ConsoleColumns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+	ConsoleRows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+
 	//Crate game board
 	gameBoard = new char* [GAME_HEIGHT];
 	for (int i = 0; i < GAME_HEIGHT; i++)
@@ -235,6 +249,7 @@ CGAME::CGAME() :
 		//Line of car
 		theHeight += 2;
 		if (GAME_HEIGHT - theHeight <= 0) { break; }
+		CarTruck_yLine.push_back(GAME_HEIGHT - theHeight);
 		for (int a = 0; a < GAME_WIDTH; a += CCAR::dist)
 		{
 			if (a + CCAR::size < GAME_WIDTH)
@@ -249,6 +264,7 @@ CGAME::CGAME() :
 		//Line of truck
 		theHeight += 1;
 		if (GAME_HEIGHT - theHeight <= 0) { break; }
+		CarTruck_yLine.push_back(GAME_HEIGHT - theHeight);
 		for (int a = 0; a < GAME_WIDTH; a += CTRUCK::dist)
 		{
 			if (a + CTRUCK::size < GAME_WIDTH)

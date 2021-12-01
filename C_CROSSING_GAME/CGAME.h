@@ -15,7 +15,7 @@
 class CGAME
 {
 public:
-	CGAME();
+	CGAME(HANDLE &Consolehandler);
 	void draw();
 
 	//void update(int stop,bool redLight);
@@ -27,6 +27,7 @@ public:
 	bool isDead() { return pep.isDead; };
 	bool isDone() { return pep.isWin; };
 	void save();
+	void turnRed(bool redLight) { carIsStop = redLight; }
 	void saveGame(std::string fileName);
 	void loadGame(std::string fileName);
 	~CGAME()
@@ -38,6 +39,7 @@ public:
 	}
 	//void CHANGE_GAME_HANDLE(HANDLE poi) { gamethreadHandler = poi; };
 private:
+	int ConsoleColumns, ConsoleRows;
 	bool havePep(int xPos, int yPos)
 	{
 		return (xPos == pep.mX) && (yPos == pep.mY);
@@ -49,7 +51,8 @@ private:
 	std::vector<CDINOSAUR> dinoVct;
 	std::vector<CELEPHANT> eleVct;
 	char** gameBoard;
-	//HANDLE gamethreadHandler;
+	std::vector<int> CarTruck_yLine;
+	HANDLE Consolehandle;
 };
 
 
