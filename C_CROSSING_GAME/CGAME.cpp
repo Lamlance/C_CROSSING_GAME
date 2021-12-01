@@ -51,6 +51,7 @@ void CGAME::input(char cmd)
 
 void CGAME::draw()
 {
+	
 	system("cls");
 
 	//init people character
@@ -180,6 +181,7 @@ void CGAME::carUpdate(bool green)
 		carIsStop = true;
 		return; 
 	}
+	
 	int vctSize = carVct.size();
 	for (int i = 0; i < vctSize; i++)
 	{
@@ -194,6 +196,25 @@ void CGAME::carUpdate(bool green)
 	}
 }
 
+void CGAME::update(int stop,bool redLight)
+{	
+	system("cls");
+	if (redLight)
+	{
+		this->draw();
+		
+		std::this_thread::sleep_for(std::chrono::milliseconds(10000));
+	}
+	else
+	{
+		
+		this->carUpdate(stop % 3);
+		this->truckUpdate(stop % 2);
+		this->draw();
+		
+	}
+	
+}
 
 CGAME::CGAME() : 
 	gameBoard(nullptr), carVct(0), truckVct(0), pep(GAME_WIDTH, GAME_HEIGHT - 1),dinoVct(0),eleVct(0), carIsStop(false)

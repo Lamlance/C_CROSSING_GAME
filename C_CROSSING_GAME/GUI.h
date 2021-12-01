@@ -2,6 +2,9 @@
 #include <iostream>
 #include <Windows.h>
 #include <string.h>
+#include <iomanip>
+#include <locale>
+#include <codecvt>
 #include "CGAME.h"
 #define consoleWidth 100
 #define consoleHeight 25
@@ -22,3 +25,6 @@ void gotoxy(short x, short y);
 void box(int x, int y, HANDLE h, int& select);
 void rule(HANDLE handle, int& option);
 void about(HANDLE handle, int& option);
+void goodbye(HANDLE h);
+void win(HANDLE h);
+void lose(HANDLE h);
