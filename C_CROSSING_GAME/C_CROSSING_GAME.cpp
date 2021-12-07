@@ -54,6 +54,7 @@ void dogame()
 		std::this_thread::sleep_for(std::chrono::milliseconds(600));
 		num = num % 7;
 	}
+
 	if (IS_RUN == false)
 	{
 		if (game.isDead())
@@ -94,6 +95,7 @@ int main()
 		}
 
 	} while (select != 0 && select != 4 && select != 1);
+
 	if (select != 4)
 	{
 		SetConsoleTextAttribute(handle, 10); // White
@@ -135,6 +137,7 @@ int main()
 				ResumeThread((HANDLE)th1.native_handle());
 				system("cls");
 			}
+
 			// load game
 			// press l to load game
 			else if (MOVE == 'l')
@@ -158,6 +161,7 @@ int main()
 			MOVE = '1';
 			IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
 		}
+
 		th1.join();
 		if (game.isDead())
 		{

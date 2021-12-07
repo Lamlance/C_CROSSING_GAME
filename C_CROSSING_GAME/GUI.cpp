@@ -36,7 +36,7 @@ void gameIntro(HANDLE handle) {
         std::cout << "            {======|  {======|  {======| _|'''''| _|'''''| _|'''''| _ |'''''|  {======|  {======|  {======|  \n";
         std::cout << "           ./o--000' ./o--000' ./o--000' '`-0-0-' '`-0-0-'  `-0-0-'  '`-0-0-' ./o--000' . / o--000' ./o--000'  \n";
         if ((car.x + 4 >= consoleWidth)) k = 100;
-        std::cout << "\n\n                                                   Loanding ";
+        std::cout << "\n\n                                                   Loading ";
         SetConsoleTextAttribute(handle, 11);
         std::cout << k;
         SetConsoleTextAttribute(handle, 12);
