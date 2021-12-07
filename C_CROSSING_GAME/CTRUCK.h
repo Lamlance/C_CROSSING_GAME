@@ -1,4 +1,7 @@
 #pragma once
+#ifndef CTRUCK_H
+#define CTRUCK_H
+
 #include "CVEHICLE.h"
 #include <string>
 
@@ -14,3 +17,7 @@ private:
 	static int dist;
 	static char symb;
 };
+
+#endif // !CTRUCK_H
+
+

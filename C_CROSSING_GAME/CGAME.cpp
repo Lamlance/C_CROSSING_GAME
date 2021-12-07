@@ -306,6 +306,7 @@ CGAME::CGAME(HANDLE &Consolehandler) :
 	}
 }
 
+// model save function
 void CGAME::save()
 {
 	std::ofstream saveFile("saveFile.txt");
