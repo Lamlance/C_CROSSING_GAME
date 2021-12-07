@@ -112,19 +112,22 @@ int main()
 				std::cin.clear();
 			}
 			// pause
+			// press p to pause game
 			if (MOVE == 'p')
 			{
 				SuspendThread(th1.native_handle());
 			}
+			// press c to continue game
 			else if (MOVE == 'c')
 			{
 				ResumeThread((HANDLE)th1.native_handle());
 			}
-			// save game
-			else if (MOVE == 'k')
+			// press k to save game
+			else if (MOVE == 'k') 
 			{
 				system("cls");
 				SuspendThread((HANDLE)th1.native_handle());
+				//pause game befor inter file save name
 				std::cout << "Save file name: ";
 				std::getline(std::cin, filepath);
 				game.saveGame(filepath);
@@ -133,6 +136,7 @@ int main()
 				system("cls");
 			}
 			// load game
+			// press l to load game
 			else if (MOVE == 'l')
 			{
 				SuspendThread((HANDLE)th1.native_handle());

@@ -320,6 +320,7 @@ void CGAME::save()
 	}
 }
 
+// final save function
 void CGAME::saveGame(std::string fileName)
 {
 	std::ofstream file(fileName);
@@ -330,6 +331,7 @@ void CGAME::saveGame(std::string fileName)
 		return;
 	}*/
 	std::cout << "Saving..." << std::endl; Sleep(1);
+	// Sleep(1) for UX
 
 	file << GAME_HEIGHT << " " << GAME_WIDTH << std::endl;
 	file << pep.mX << " " << pep.mY << std::endl;
@@ -379,8 +381,8 @@ void CGAME::loadGame(std::string fileName)
 	file >> hight >> width;
 	//std::cout << hight << " " << width << std::endl;
 	file >> pep.mX >> pep.mY;
-	std::cout << pep.mX << " " << pep.mY << std::endl;
-	//td::cout << pep.mX << " " << pep.mY << std::endl;
+	//std::cout << pep.mX << " " << pep.mY << std::endl;
+	//std::cout << pep.mX << " " << pep.mY << std::endl;
 	std::string car;
 	file >> car; // junk car
 	for (int i = 0; i < carVct.size(); i++)
@@ -405,6 +407,7 @@ void CGAME::loadGame(std::string fileName)
 	for (int i = 0; i < eleVct.size(); i++) {
 	file >> eleVct[i].mX >> eleVct[i].mY;
 	}
+
 	file.close();
 	std::cout << "Load successfull" << std::endl;
 }
