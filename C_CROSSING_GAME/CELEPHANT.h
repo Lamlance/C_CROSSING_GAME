@@ -10,7 +10,7 @@ public:
 	CELEPHANT() :CVEHICLE() {};
 	CELEPHANT(int posX, int posY) :CVEHICLE(posX, posY) {};
 	friend class CGAME;
-
+	char getChar() { return symb; };
 
 private:
 	static int spds;

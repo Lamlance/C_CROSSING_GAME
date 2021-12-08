@@ -15,10 +15,20 @@ bool IS_RUN = true;
 char MOVE = '1';
 HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 static CGAME game(handle);
+double beginGameTime = 0;
+
+
 
 double timePass_since(double startTime)
 {
 	return (clock() - startTime) / CLOCKS_PER_SEC;
+}
+
+
+void timeScore()
+{
+	gotoxy(50, 10);
+	std::cout << timePass_since(beginGameTime);
 }
 
 void dogame()
@@ -28,8 +38,9 @@ void dogame()
 	int num = 1;
 	while (IS_RUN)
 	{
+		//timeScore();
 		++num;
-		if (timePass_since(startTime) < 5)// car go
+		if (timePass_since(startTime) <= 10)// car go
 		{
 			game.carUpdate(num % 3);
 			game.truckUpdate(num % 2);
@@ -38,7 +49,7 @@ void dogame()
 		else
 		{
 			game.turnRed(true);
-			if (timePass_since(stopTime) >= 10) // car stop
+			if (timePass_since(stopTime) >= 5) // car stop
 			{
 				game.turnRed(false);
 				stopTime = clock();
@@ -46,9 +57,9 @@ void dogame()
 			}
 		}
 		game.eleUpdate(num % 2);
-		game.dinoUpdate(num % 2);
+		game.dinoUpdate(num % 3);
 
-		game.draw();
+		//game.draw();
 		MOVE = ' ';
 		IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
 		std::this_thread::sleep_for(std::chrono::milliseconds(600));
@@ -67,10 +78,28 @@ void dogame()
 	}
 }
 
-
+void drawConsole()
+{
+	while (IS_RUN)
+	{
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+		game.draw();
+	}
+}
 
 int main()
 {
+
+	/*while (true)
+	{
+		game.draw();
+		game.truckUpdate();
+		game.dinoUpdate();
+		game.eleUpdate();
+		game.carUpdate();
+		std::this_thread::sleep_for(std::chrono::milliseconds(600));
+	}*/
+
 	UINT default_encoding = GetConsoleOutputCP();
 	std::string filepath;
 	gameIntro(handle);
@@ -98,6 +127,10 @@ int main()
 	{
 		SetConsoleTextAttribute(handle, 10); // White
 		std::thread th1(dogame);
+		std::thread th2(drawConsole);
+
+		beginGameTime = clock();
+
 		while (IS_RUN)
 		{
 			if (select == 1) 
