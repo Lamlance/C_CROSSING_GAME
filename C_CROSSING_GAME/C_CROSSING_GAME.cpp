@@ -62,7 +62,7 @@ void dogame()
 		//game.draw();
 		MOVE = ' ';
 		IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
-		std::this_thread::sleep_for(std::chrono::milliseconds(600));
+		std::this_thread::sleep_for(std::chrono::milliseconds(400));
 		num = num % 7;
 	}
 	if (IS_RUN == false)
@@ -75,6 +75,7 @@ void dogame()
 		{
 			win(handle);
 		}
+		exit(0);
 	}
 }
 
@@ -188,6 +189,7 @@ int main()
 			IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
 		}
 		th1.join();
+		th2.join();
 		if (game.isDead())
 		{
 			lose(handle);
