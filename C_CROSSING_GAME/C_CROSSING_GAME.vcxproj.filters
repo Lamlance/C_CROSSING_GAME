@@ -74,9 +74,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\OneDrive - VNU-HCMUS\Documents\GitHub\C_CROSSING_GAME\C_CROSSING_GAME\CPEOPLE.h">
-      <Filter>Source Files\PEOPLE</Filter>
-    </ClInclude>
     <ClInclude Include="CCAR.h">
       <Filter>Header Files\VEHICLE</Filter>
     </ClInclude>
@@ -106,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="CELEPHANT.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CPEOPLE.h">
+      <Filter>Source Files\PEOPLE</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

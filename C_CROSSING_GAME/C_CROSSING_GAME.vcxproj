@@ -148,11 +148,11 @@
     <ClCompile Include="GUI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\OneDrive - VNU-HCMUS\Documents\GitHub\C_CROSSING_GAME\C_CROSSING_GAME\CPEOPLE.h" />
     <ClInclude Include="CCAR.h" />
     <ClInclude Include="CDINOSAUR.h" />
     <ClInclude Include="CELEPHANT.h" />
     <ClInclude Include="CGAME.h" />
+    <ClInclude Include="CPEOPLE.h" />
     <ClInclude Include="CTRUCK.h" />
     <ClInclude Include="CVEHICLE.h" />
     <ClInclude Include="GUI.h" />
