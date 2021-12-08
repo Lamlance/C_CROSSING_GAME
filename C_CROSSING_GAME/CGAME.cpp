@@ -59,14 +59,14 @@ void CGAME::draw()
 	//init people character
 	gameBoard[pep.mY][pep.mX] = '^';
 
-	//init car characte
+	//init car character
 	int vctSize = carVct.size();
 	for (int i = 0; i < vctSize; i++)
 	{
 		gameBoard[carVct[i].mY][carVct[i].mX] = CCAR::symb;
 	}
 
-	//inti truck character
+	//init truck character
 	vctSize = truckVct.size();
 	for (int i = 0; i < vctSize; i++)
 	{
@@ -80,7 +80,7 @@ void CGAME::draw()
 		gameBoard[dinoVct[i].mY][dinoVct[i].mX] = CDINOSAUR::symb;
 	}
 
-	//inti ele character
+	//init ele character
 	vctSize = eleVct.size();
 	for (int i = 0; i < vctSize; i++)
 	{
@@ -306,6 +306,7 @@ CGAME::CGAME(HANDLE &Consolehandler) :
 	}
 }
 
+// model save function
 void CGAME::save()
 {
 	std::ofstream saveFile("saveFile.txt");
@@ -317,7 +318,6 @@ void CGAME::save()
 	{
 		saveFile << carVct[i].getX() << " " << carVct[i].getY() << std::endl;
 	}
-
 }
 
 void CGAME::saveGame(std::string fileName)

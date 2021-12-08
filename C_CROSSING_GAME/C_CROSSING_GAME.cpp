@@ -106,7 +106,8 @@ int main()
 				select = 0;
 			}
 			else
-			{// use _getch() in order not to hit enter while moving
+			{
+				// use _getch() in order not to hit enter while moving
 				MOVE = _getch();
 				std::cin.clear();
 			}
@@ -119,6 +120,7 @@ int main()
 			{
 				ResumeThread((HANDLE)th1.native_handle());
 			}
+			// save game
 			else if (MOVE == 'k')
 			{
 				system("cls");
@@ -130,6 +132,7 @@ int main()
 				ResumeThread((HANDLE)th1.native_handle());
 				system("cls");
 			}
+			// load game
 			else if (MOVE == 'l')
 			{
 				SuspendThread((HANDLE)th1.native_handle());
