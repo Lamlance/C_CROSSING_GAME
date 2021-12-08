@@ -86,15 +86,19 @@ void CGAME::draw()
 	{
 		gameBoard[eleVct[i].mY][eleVct[i].mX] = CELEPHANT::symb;
 	}
+	int height = 3;
 
+	gotoxy(15, height);
 	std::cout << char(219);
 	for (int x = 0; x < GAME_WIDTH; x++) { std::cout << char(219); }
 	std::cout << char(219) << std::endl;
 
 	for (int y = 0; y < GAME_HEIGHT; y++)
 	{
+		height++;
 		bool isCarTruckLine = false;
 		SetConsoleTextAttribute(Consolehandle, 15); // White
+		gotoxy(15, height);
 
 		for (int i = 0; i < CarTruck_yLine.size(); i++)
 		{
@@ -135,6 +139,7 @@ void CGAME::draw()
 				break;
 			}
 		}
+
 		if (isCarTruckLine == false)
 		{
 			std::cout << char(219);
@@ -145,6 +150,8 @@ void CGAME::draw()
 			std::cout << char(219) << std::endl;
 		}
 	}
+
+	gotoxy(15, height+1);
 	std::cout << char(219);
 	for (int x = 0; x < GAME_WIDTH; x++) { std::cout << char(219); }
 	std::cout << char(219) << std::endl;
