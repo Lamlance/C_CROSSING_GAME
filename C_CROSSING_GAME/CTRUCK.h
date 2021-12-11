@@ -19,6 +19,7 @@ private:
 	static char symb;
 };
 
+
 #endif // !CTRUCK_H
 
 
