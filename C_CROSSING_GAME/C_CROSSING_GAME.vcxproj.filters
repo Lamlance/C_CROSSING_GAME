@@ -72,6 +72,9 @@
     <ClCompile Include="C_CROSSING_GAME.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CPEOPLE.cpp">
+      <Filter>Source Files\PEOPLE</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCAR.h">

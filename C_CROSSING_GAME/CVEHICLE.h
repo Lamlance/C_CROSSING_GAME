@@ -15,7 +15,7 @@ public:
 	};
 	int getX() { return mX; };
 	int getY() { return mY; };
-
+	virtual char getChar() { return '?'; };
 	friend class CGAME;
 
 private:

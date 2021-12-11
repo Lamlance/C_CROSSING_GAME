@@ -143,6 +143,7 @@
     <ClCompile Include="CDINOSAUR.cpp" />
     <ClCompile Include="CELEPHANT.cpp" />
     <ClCompile Include="CGAME.cpp" />
+    <ClCompile Include="CPEOPLE.cpp" />
     <ClCompile Include="CTRUCK.cpp" />
     <ClCompile Include="C_CROSSING_GAME.cpp" />
     <ClCompile Include="GUI.cpp" />
