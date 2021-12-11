@@ -6,8 +6,10 @@
 #include <locale>
 #include <codecvt>
 #include "CGAME.h"
+
 #define consoleWidth 100
 #define consoleHeight 25
+
 struct object
 {
 	char t[30];
@@ -19,6 +21,7 @@ struct chartext {
 	char t2[41];
 	char t3[41];
 };
+
 void cls(HANDLE hConsole);
 void gameIntro(HANDLE handle);
 void gotoxy(short x, short y);

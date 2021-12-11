@@ -54,6 +54,7 @@ void dogame()
 		std::this_thread::sleep_for(std::chrono::milliseconds(600));
 		num = num % 7;
 	}
+
 	if (IS_RUN == false)
 	{
 		if (game.isDead())
@@ -94,6 +95,7 @@ int main()
 		}
 
 	} while (select != 0 && select != 4 && select != 1);
+
 	if (select != 4)
 	{
 		SetConsoleTextAttribute(handle, 10); // White
@@ -112,19 +114,22 @@ int main()
 				std::cin.clear();
 			}
 			// pause
+			// press p to pause game
 			if (MOVE == 'p')
 			{
 				SuspendThread(th1.native_handle());
 			}
+			// press c to continue game
 			else if (MOVE == 'c')
 			{
 				ResumeThread((HANDLE)th1.native_handle());
 			}
-			// save game
-			else if (MOVE == 'k')
+			// press k to save game
+			else if (MOVE == 'k') 
 			{
 				system("cls");
 				SuspendThread((HANDLE)th1.native_handle());
+				//pause game befor inter file save name
 				std::cout << "Save file name: ";
 				std::getline(std::cin, filepath);
 				game.saveGame(filepath);
@@ -132,7 +137,9 @@ int main()
 				ResumeThread((HANDLE)th1.native_handle());
 				system("cls");
 			}
+
 			// load game
+			// press l to load game
 			else if (MOVE == 'l')
 			{
 				SuspendThread((HANDLE)th1.native_handle());
@@ -154,6 +161,7 @@ int main()
 			MOVE = '1';
 			IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
 		}
+
 		th1.join();
 		if (game.isDead())
 		{
