@@ -31,7 +31,7 @@ public:
 	void turnRed(bool redLight) { carIsStop = redLight; }
 	void saveGame(std::string fileName);
 	void loadGame(std::string fileName);
-
+	void instaWin() { pep.mY = 0; };
 	bool havePep(int xPos, int yPos)
 	{
 		return (xPos == pep.mX) && (yPos == pep.mY);
