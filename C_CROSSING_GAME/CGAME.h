@@ -24,6 +24,7 @@ public:
 	void dinoUpdate(bool green = true);
 	void eleUpdate(bool green = true);
 	void input(char cmd);
+	void reset() { pep.reset(); };
 	bool isDead() { return pep.isDead; };
 	bool isDone() { return pep.isWin; };
 	void save();

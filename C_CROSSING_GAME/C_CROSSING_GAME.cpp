@@ -16,8 +16,7 @@ char MOVE = '1';
 HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 static CGAME game(handle);
 double beginGameTime = 0;
-
-
+int level = 3;
 
 double timePass_since(double startTime)
 {
@@ -36,71 +35,63 @@ void dogame()
 	double startTime = clock();
 	double stopTime = 0;
 	int num = 1;
-	while (IS_RUN)
+	while (true)
 	{
-		//timeScore();
-		++num;
-		if (timePass_since(startTime) <= 10)// car go
+		while (IS_RUN)
 		{
-			game.carUpdate(num % 3);
-			game.truckUpdate(num % 2);
-			stopTime = clock();
-		}
-		else
-		{
-			game.turnRed(true);
-			if (timePass_since(stopTime) >= 5) // car stop
+			//timeScore();
+			++num;
+			if (timePass_since(startTime) <= 10)// car go
 			{
-				game.turnRed(false);
+				game.carUpdate(num % 3);
+				game.truckUpdate(num % 2);
 				stopTime = clock();
-				startTime = clock();
+			}
+			else
+			{
+				game.turnRed(true);
+				if (timePass_since(stopTime) >= 5) // car stop
+				{
+					game.turnRed(false);
+					stopTime = clock();
+					startTime = clock();
+				}
+			}
+			game.eleUpdate(num % 2);
+			game.dinoUpdate(num % 3);
+
+			//game.draw();
+			MOVE = ' ';
+			IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone()) && (level>0);
+			std::this_thread::sleep_for(std::chrono::milliseconds(200)*level);
+			num = num % 7;
+			if (!IS_RUN)
+			{
+				system("cls");
+				std::cout << " Press Enter to continue";
 			}
 		}
-		game.eleUpdate(num % 2);
-		game.dinoUpdate(num % 3);
+	}
+	
+	
 
-		//game.draw();
-		MOVE = ' ';
-		IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
-		std::this_thread::sleep_for(std::chrono::milliseconds(400));
-		num = num % 7;
-	}
-	if (IS_RUN == false)
-	{
-		if (game.isDead())
-		{
-			lose(handle);
-		}
-		else if (game.isDone())
-		{
-			win(handle);
-		}
-		exit(0);
-	}
 }
 
 void drawConsole()
 {
-	while (IS_RUN)
+	while (true)
 	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(200));
-		game.draw();
+		while (IS_RUN)
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(200));
+			game.draw();
+		}
 	}
+
 }
 
 int main()
 {
-
-	/*while (true)
-	{
-		game.draw();
-		game.truckUpdate();
-		game.dinoUpdate();
-		game.eleUpdate();
-		game.carUpdate();
-		std::this_thread::sleep_for(std::chrono::milliseconds(600));
-	}*/
-
 	UINT default_encoding = GetConsoleOutputCP();
 	std::string filepath;
 	gameIntro(handle);
@@ -134,7 +125,7 @@ int main()
 
 		while (IS_RUN)
 		{
-			if (select == 1) 
+			if (select == 1)
 			{
 				MOVE = 'l';
 				select = 0;
@@ -149,10 +140,12 @@ int main()
 			if (MOVE == 'p')
 			{
 				SuspendThread(th1.native_handle());
+				SuspendThread(th2.native_handle());
 			}
 			else if (MOVE == 'c')
 			{
 				ResumeThread((HANDLE)th1.native_handle());
+				ResumeThread((HANDLE)th2.native_handle());
 			}
 			// save game
 			else if (MOVE == 'k')
@@ -187,9 +180,41 @@ int main()
 			}
 			MOVE = '1';
 			IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone());
+
+			if (!IS_RUN)
+			{
+				system("cls");
+				SuspendThread(th1.native_handle());
+				SuspendThread(th2.native_handle());
+
+				if (game.isDead())
+				{
+					lose(handle);
+					char ans;
+					std::cout << "You are ded :)). Restart enter y: ";
+					std::cin >> ans;
+					if (ans == 'y')
+					{
+						IS_RUN = true;
+						game.reset();
+						level = 3;
+					}
+				}
+				else if (game.isDone())
+				{
+					win(handle);
+					std::cout << "Level complete loading next level ...";
+					std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+					level--;
+					IS_RUN = true;
+					game.reset();
+				}
+
+				ResumeThread((HANDLE)th1.native_handle());
+				ResumeThread((HANDLE)th2.native_handle());
+			}
 		}
-		th1.join();
-		th2.join();
+
 		if (game.isDead())
 		{
 			lose(handle);
@@ -198,11 +223,14 @@ int main()
 		{
 			win(handle);
 		}
-		else
-		{
-			cls(handle);
-			goodbye(handle);
-		}
+
+		cls(handle);
+		goodbye(handle);
+
+		exit(0);
+
+		th1.join();
+		th2.join();
 	}
 	return 0;
 }
