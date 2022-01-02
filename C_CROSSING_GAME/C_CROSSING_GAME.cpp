@@ -17,7 +17,7 @@ HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 static CGAME game(handle);
 int level = 3;
 bool continuee = false;
-
+bool draw = true;
 double timePass_since(double startTime)
 {
 	return (clock() - startTime) / CLOCKS_PER_SEC;
@@ -27,8 +27,11 @@ void drawConsole()
 {
 	while (IS_RUN)
 	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(200));
-		game.draw();
+		if (draw)
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(200));
+			game.draw();
+		}
 		if (!IS_RUN)
 		{
 			while (!IS_RUN && level > 0) {}
@@ -190,6 +193,8 @@ int main()
 
 				if (game.isDead())
 				{
+					draw = false;
+					std::this_thread::sleep_for(std::chrono::milliseconds(500));
 					system("cls");
 					lose(handle);
 					char ans;
@@ -199,6 +204,7 @@ int main()
 					{
 						continuee = true;
 						IS_RUN = true;
+						draw = true;
 						game.reset();
 						level = 3;
 						ResumeThread((HANDLE)th1.native_handle());
@@ -206,15 +212,22 @@ int main()
 				}
 				else if (game.isDone())
 				{
+					draw = false;
+					std::this_thread::sleep_for(std::chrono::milliseconds(500));
 					system("cls");
 					win(handle);
-					std::cout << "Level complete loading next level ...";
-					std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-					level--;
-					continuee = true;
-					IS_RUN = true;
-					game.reset();
-					ResumeThread((HANDLE)th1.native_handle());
+					if (level > 0)
+					{
+						std::cout << "Level complete loading next level ...";
+						std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+						level--;
+						draw = true;
+						continuee = true;
+						IS_RUN = true;
+						game.reset();
+						ResumeThread((HANDLE)th1.native_handle());
+					}
+					
 
 				}
 			}
