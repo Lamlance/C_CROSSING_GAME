@@ -46,7 +46,6 @@ void dogame()
 	int num = 1;
 	bool RUN = true;
 	std::thread th2(drawConsole);
-
 	while (IS_RUN)
 	{
 		continuee = false;
@@ -61,8 +60,12 @@ void dogame()
 		else
 		{
 			game.turnRed(true);
+			PlaySound(TEXT("redlight.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
 			if (timePass_since(stopTime) >= 5) // car stop
 			{
+				PlaySound(TEXT("greenlight.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
 				game.turnRed(false);
 				stopTime = clock();
 				startTime = clock();
@@ -72,6 +75,10 @@ void dogame()
 		game.dinoUpdate(num % 3);
 
 		//game.draw();
+		if (game.isDead())
+		{
+			PlaySound(TEXT("hit.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		}
 		MOVE = ' ';
 		IS_RUN = (MOVE != '0') && !(game.isDead()) && !(game.isDone()) && (level > 0);
 		std::this_thread::sleep_for(std::chrono::milliseconds(200) * level);
@@ -118,6 +125,7 @@ int main()
 
 	if (select != 4)
 	{
+
 		SetConsoleTextAttribute(handle, 10); // White
 		std::thread th1(dogame);
 
@@ -194,6 +202,7 @@ int main()
 				if (game.isDead())
 				{
 					draw = false;
+					PlaySound(TEXT("lose.wav"), NULL, SND_FILENAME | SND_ASYNC);
 					std::this_thread::sleep_for(std::chrono::milliseconds(500));
 					system("cls");
 					lose(handle);
@@ -214,6 +223,7 @@ int main()
 				{
 					draw = false;
 					std::this_thread::sleep_for(std::chrono::milliseconds(500));
+					PlaySound(TEXT("win.wav"), NULL, SND_FILENAME | SND_ASYNC);
 					system("cls");
 					win(handle);
 					if (level > 0)

@@ -8,6 +8,7 @@
 #include <windows.h>
 #include <conio.h>
 #include "GUI.h"
+#pragma comment(lib, "winmm.lib")
 
 void CGAME::input(char cmd)
 {
@@ -20,14 +21,24 @@ void CGAME::input(char cmd)
 		pep.Up(GAME_HEIGHT);
 		pep.isDead = pep.isDead || pepRunInto();
 		pep.isWin = pep.isWin || (pep.mY == 0);
+		PlaySound(TEXT("move.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		if (pep.isDead)
+		{
+			PlaySound(TEXT("hit.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		}
 		return;
 	}
 	case 's':
 	{
 		//gameBoard[pep.mY][pep.mX] = '.';
 		pep.Down(GAME_HEIGHT);
-		pep.isDead = pep.isDead || pepRunInto();;
+		pep.isDead = pep.isDead || pepRunInto();
 		pep.isWin = pep.isWin || (pep.mY == 0);
+		PlaySound(TEXT("move.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		if (pep.isDead)
+		{
+			PlaySound(TEXT("hit.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		}
 		return;
 	}
 	case 'a':
@@ -36,6 +47,11 @@ void CGAME::input(char cmd)
 		pep.Left(GAME_HEIGHT);
 		pep.isDead = pep.isDead || pepRunInto();
 		pep.isWin = pep.isWin || (pep.mY == 0);
+		PlaySound(TEXT("move.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		if (pep.isDead)
+		{
+			PlaySound(TEXT("hit.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		}
 		return;
 	}
 	case 'd':
@@ -44,6 +60,11 @@ void CGAME::input(char cmd)
 		pep.Right(GAME_WIDTH);
 		pep.isDead = pep.isDead || pepRunInto();
 		pep.isWin = pep.isWin || (pep.mY == 0);
+		PlaySound(TEXT("move.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		if (pep.isDead)
+		{
+			PlaySound(TEXT("hit.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		}
 		return;
 	}
 	default:
